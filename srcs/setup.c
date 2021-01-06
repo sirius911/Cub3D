@@ -1,0 +1,97 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   setup.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/12/24 15:16:51 by clorin            #+#    #+#             */
+/*   Updated: 2020/12/24 15:16:53 by clorin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../includes/cub3d.h"
+
+static int		mlx_get_screen_size(void *mlx_ptr, int *sizex, int *sizey)
+{
+	(void)mlx_ptr;
+	*sizex = 1920;
+	*sizey = 1080;
+	return (0);
+}
+
+static int		valid_mlx(t_game *game)
+{
+	int		resol_x;
+	int		resol_y;
+
+	if (!game->save)
+	{
+		game->window.mlx_ptr = mlx_init();
+		mlx_get_screen_size(game->window.mlx_ptr, &resol_x, &resol_y);
+		if (game->window.screen_width > resol_x)
+			game->window.screen_width = resol_x;
+		if (game->window.screen_height > resol_y)
+			game->window.screen_height = resol_y;
+		game->window.win_ptr = mlx_new_window(game->window.mlx_ptr,
+		game->window.screen_width, game->window.screen_height, game->map.name);
+		creat_images(&game->window);
+		game->window.num_rays = game->window.screen_width / WALL_STRIP_WIDTH;
+		return (TRUE);
+	}
+	return (FALSE);
+}
+
+int				setup_resol(t_game *game, char **tab)
+{
+	int		resol_x;
+	int		resol_y;
+
+	if (tab[1] && tab[2] && is_number(tab[1]) && is_number(tab[2]))
+	{
+		resol_x = ft_atoi(tab[1]);
+		resol_y = ft_atoi(tab[2]);
+		if (resol_x > 0 && resol_y > 0)
+		{
+			if (game->window.screen_width == 0
+				&& game->window.screen_height == 0)
+			{
+				game->window.screen_width = resol_x;
+				game->window.screen_height = resol_y;
+				return (valid_mlx(game));
+			}
+			else
+				ft_putstr_fd("Error\nResolution specified twice\n", 2);
+		}
+		else
+			ft_putstr_fd("Error\nBad resolution\n", 2);
+	}
+	else
+		ft_putstr_fd("Error\nCouldn't parse resolution\n", 2);
+	return (FALSE);
+}
+
+int				setup_color(t_game *game, char **tab)
+{
+	int			color;
+
+	if (tab[1])
+	{
+		color = parse_color(tab[1]);
+		if (color == -1)
+		{
+			ft_putstr_fd("Error\nBad color\n", 2);
+			return (FALSE);
+		}
+	}
+	else
+	{
+		ft_putstr_fd("Error\nCouldn't parse color for sky/floor\n", 2);
+		return (FALSE);
+	}
+	if (ft_strequ(tab[0], "F"))
+		game->window.floor_color = color;
+	else
+		game->window.sky_color = color;
+	return (TRUE);
+}
