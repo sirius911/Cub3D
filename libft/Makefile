@@ -55,8 +55,6 @@ $(NAME):	${OBJS}
 			@echo "\033[0m\nCréation de la librairie ... \033[32mok\033[0m"
 			@ranlib ${NAME}
 			@echo "Optimisation ... \033[32mok\033[0m"
-			@rm -f ${OBJS}
-			@echo "\033[0m\nSuppression fichiers *.o  ... \033[32mok\033[0m"
 			@echo "\033[1;31;40m -------------- TERMINÉ ---------------\033[0m"
 
 clean:	
