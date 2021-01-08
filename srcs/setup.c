@@ -12,13 +12,13 @@
 
 #include "../includes/cub3d.h"
 
-// static int		mlx_get_screen_size(void *mlx_ptr, int *sizex, int *sizey)
-// {
-// 	(void)mlx_ptr;
-// 	*sizex = 1920;
-// 	*sizey = 1080;
-// 	return (0);
-// }
+static int		mlx_get_screen_size(void *mlx_ptr, int *sizex, int *sizey)
+{
+	(void)mlx_ptr;
+	*sizex = 1920;
+	*sizey = 1080;
+	return (0);
+}
 
 static int		valid_mlx(t_game *game)
 {
@@ -27,17 +27,17 @@ static int		valid_mlx(t_game *game)
 
 	if (!game->save)
 	{
-		game->window.mlx_ptr = mlx_init();
-		mlx_get_screen_size(game->window.mlx_ptr, &resol_x, &resol_y);
+		game->win.mlx_ptr = mlx_init();
+		mlx_get_screen_size(game->win.mlx_ptr, &resol_x, &resol_y);
 		printf("screen_size = (%d,%d)\n", resol_x, resol_y);
-		if (game->window.screen_width > resol_x)
-			game->window.screen_width = resol_x;
-		if (game->window.screen_height > resol_y)
-			game->window.screen_height = resol_y;
-		game->window.win_ptr = mlx_new_window(game->window.mlx_ptr,
-		game->window.screen_width, game->window.screen_height, game->map.name);
-		creat_images(&game->window);
-		game->window.num_rays = game->window.screen_width / WALL_STRIP_WIDTH;
+		if (game->win.width > resol_x)
+			game->win.width = resol_x;
+		if (game->win.height > resol_y)
+			game->win.height = resol_y;
+		game->win.win_ptr = mlx_new_window(game->win.mlx_ptr,
+		game->win.width, game->win.height, game->map.name);
+		creat_images(&game->win);
+		game->win.num_rays = game->win.width / WALL_STRIP_WIDTH;
 		return (TRUE);
 	}
 	return (FALSE);
@@ -54,11 +54,11 @@ int				setup_resol(t_game *game, char **tab)
 		resol_y = ft_atoi(tab[2]);
 		if (resol_x > 0 && resol_y > 0)
 		{
-			if (game->window.screen_width == 0
-				&& game->window.screen_height == 0)
+			if (game->win.width == 0
+				&& game->win.height == 0)
 			{
-				game->window.screen_width = resol_x;
-				game->window.screen_height = resol_y;
+				game->win.width = resol_x;
+				game->win.height = resol_y;
 				return (valid_mlx(game));
 			}
 			else
@@ -91,8 +91,8 @@ int				setup_color(t_game *game, char **tab)
 		return (FALSE);
 	}
 	if (ft_strequ(tab[0], "F"))
-		game->window.floor_color = color;
+		game->win.f_color = color;
 	else
-		game->window.sky_color = color;
+		game->win.c_color = color;
 	return (TRUE);
 }

@@ -30,8 +30,8 @@ static int			valid_pos_player(t_game *game, int x, int y, char dir)
 {
 	if (game->player.coord.x == -1 && game->player.coord.y == -1)
 	{
-		game->player.coord.x = (x * game->window.tile_size) + (game->window.tile_size / 2);
-		game->player.coord.y = (y * game->window.tile_size) + (game->window.tile_size / 2);
+		game->player.coord.x = (x * game->win.t_size) + (game->win.t_size / 2);
+		game->player.coord.y = (y * game->win.t_size) + (game->win.t_size / 2);
 		if(dir == 'E')
 			game->player.rot_angle = 0;
 		else if(dir == 'S')

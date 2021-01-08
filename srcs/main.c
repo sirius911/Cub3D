@@ -35,12 +35,12 @@ static void		contine(t_game *game)
 	// 	}
 	// 	ft_putendl(">");
 	// }
-	printf("screen size : width = %d\theight = %d\n", game->window.screen_width, game->window.screen_height);
+	printf("screen size : width = %d\theight = %d\n", game->win.width, game->win.height);
 	printf("position x =%f\ty=%f rot = %f\n", game->player.coord.x, game->player.coord.y, game->player.rot_angle);
-	mlx_hook(game->window.win_ptr, 2, 1L<<0, deal_key, game);
-	mlx_hook(game->window.win_ptr, 3, 1L<<1, release_key, game);
+	mlx_hook(game->win.win_ptr, 2, 1L<<0, deal_key, game);
+	mlx_hook(game->win.win_ptr, 3, 1L<<1, release_key, game);
 	render(game);
-	mlx_loop(game->window.mlx_ptr);
+	mlx_loop(game->win.mlx_ptr);
 }
 
 static int		load_file(t_game *game, char *file_name)
@@ -83,7 +83,7 @@ static void		init(char *file_name, int save)
 {
 	t_game		game;
 
-	init_window(&game.window);
+	init_win(&game.win);
 	init_player(&game.player);
 	init_map(&game.map, file_name);
 	game.save = save;

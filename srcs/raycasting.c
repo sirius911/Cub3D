@@ -36,13 +36,13 @@ t_point			inter_verti(float ray_angle, t_game *game)
 {
 	t_point			intercept;
 	t_point			player;
-	unsigned int	tile_size;
+	unsigned int	t_size;
 
 	player = game->player.coord;
-	tile_size = game->window.tile_size;
-	intercept.x = floor(player.x / tile_size) * tile_size;
+	t_size = game->win.t_size;
+	intercept.x = floor(player.x / t_size) * t_size;
 	if (is_ray_facing_right(ray_angle))
-		intercept.x += tile_size;
+		intercept.x += t_size;
 	intercept.y = player.y + (intercept.x - player.x) * tan(ray_angle);
 	return (intercept);
 }
@@ -51,25 +51,25 @@ t_point			inter_horiz(float ray_angle, t_game *game)
 {
 	t_point			intercept;
 	t_point			player;
-	unsigned int	tile_size;
+	unsigned int	t_size;
 
 	player = game->player.coord;
-	tile_size = game->window.tile_size;
-	intercept.y = floor(player.y / tile_size) * tile_size;
+	t_size = game->win.t_size;
+	intercept.y = floor(player.y / t_size) * t_size;
 	if (is_ray_facing_down(ray_angle))
-		intercept.y += tile_size;
+		intercept.y += t_size;
 	intercept.x = player.x + (intercept.y - player.y) / tan(ray_angle);
 	return (intercept);
 }
 
-t_point			step_horz(float ray_angle, t_window window)
+t_point			step_horz(float ray_angle, t_win win)
 {
 	t_point			step;
 
-	step.y = window.tile_size;
+	step.y = win.t_size;
 	if (is_ray_facing_up(ray_angle))
 		step.y *= -1;
-	step.x = window.tile_size / tan(ray_angle);
+	step.x = win.t_size / tan(ray_angle);
 	if (is_ray_facing_left(ray_angle) && step.x > 0)
 		step.x *= -1;
 	if (is_ray_facing_right(ray_angle) && step.x < 0)
@@ -77,14 +77,14 @@ t_point			step_horz(float ray_angle, t_window window)
 	return (step);
 }
 
-t_point			step_vert(float ray_angle, t_window window)
+t_point			step_vert(float ray_angle, t_win win)
 {
 	t_point			step;
 
-	step.x = window.tile_size;
+	step.x = win.t_size;
 	if (is_ray_facing_left(ray_angle))
 		step.x *= -1;
-	step.y = window.tile_size * tan(ray_angle);
+	step.y = win.t_size * tan(ray_angle);
 	if (is_ray_facing_up(ray_angle) && step.y > 0)
 		step.y *= -1;
 	if (is_ray_facing_down(ray_angle) && step.y < 0)
@@ -103,10 +103,10 @@ t_point			horz_wall_hit(float ray_angle, t_game *game)
 	no_point.x = -1;
 	no_point.y = -1;
 	intercept = inter_horiz(ray_angle, game);
-	step = step_horz(ray_angle, game->window);
+	step = step_horz(ray_angle, game->win);
 	next_touch = intercept;
-	while (next_touch.x >= 0 && next_touch.x <= game->window.screen_width
-		&& next_touch.y >= 0 && next_touch.y <= game->window.screen_height)
+	while (next_touch.x >= 0 && next_touch.x <= game->win.width
+		&& next_touch.y >= 0 && next_touch.y <= game->win.height)
 	{
 		to_check = next_touch;
 		if (is_ray_facing_up(ray_angle))
@@ -130,10 +130,10 @@ t_point			vert_wall_hit(float ray_angle, t_game *game)
 	no_point.x = -1;
 	no_point.y = -1;
 	intercept = inter_verti(ray_angle, game);
-	step = step_vert(ray_angle, game->window);
+	step = step_vert(ray_angle, game->win);
 	next_touch = intercept;
-	while (next_touch.x >= 0 && next_touch.x <= game->window.screen_width
-		&& next_touch.y >= 0 && next_touch.y <= game->window.screen_height)
+	while (next_touch.x >= 0 && next_touch.x <= game->win.width
+		&& next_touch.y >= 0 && next_touch.y <= game->win.height)
 	{
 		to_check = next_touch;
 		if (is_ray_facing_left(ray_angle))
@@ -150,7 +150,7 @@ void			fill_ray(t_ray *ray, float dist, t_point wall, float angle)
 {
 	ray->dist = dist;
 	ray->wall_hit = wall;
-	ray->ray_angle = angle;
+	ray->angle = angle;
 }
 
 void			wall(t_game *game, t_ray *ray, t_point touch, int hz)
@@ -159,21 +159,21 @@ void			wall(t_game *game, t_ray *ray, t_point touch, int hz)
 	{
 		if(!hz)
 		{
-			if (is_ray_facing_left(ray->ray_angle))
-				ray->wall_content = EAST;
+			if (is_ray_facing_left(ray->angle))
+				ray->id = EAST;
 			else
-				ray->wall_content = WEST;
+				ray->id = WEST;
 		}
 		else
 		{
-			if (is_ray_facing_up(ray->ray_angle))
-				ray->wall_content = NORTH;
+			if (is_ray_facing_up(ray->angle))
+				ray->id = NORTH;
 			else
-				ray->wall_content = SOUTH;
+				ray->id = SOUTH;
 		}
 	}
 	else
-		ray->wall_content = SPRITE;	
+		ray->id = SPRITE;	
 }
 
 void			typ_ray(t_game *game, t_ray *ray, int hz)
@@ -181,9 +181,9 @@ void			typ_ray(t_game *game, t_ray *ray, int hz)
 	t_point		touch;
 
 	touch = ray->wall_hit;
-	if (!hz && is_ray_facing_left(ray->ray_angle))
+	if (!hz && is_ray_facing_left(ray->angle))
 		touch.x -= 1;
-	if (hz && is_ray_facing_up(ray->ray_angle))
+	if (hz && is_ray_facing_up(ray->angle))
 		touch.y -= 1;
 	wall(game, ray, touch, hz);
 }
@@ -222,7 +222,7 @@ t_ray			**cast_all_rays(t_game *game)
 	t_ray		**tab_rays;
 
 
-	tab_rays = (t_ray**)malloc(sizeof(t_ray) * game->window.num_rays);
+	tab_rays = (t_ray**)malloc(sizeof(t_ray) * game->win.num_rays);
 	if(!tab_rays)
 	{
 		ft_putstr_fd("Error\nMalloc() fail\n", 2);
@@ -230,13 +230,13 @@ t_ray			**cast_all_rays(t_game *game)
 	}
 	ray_angle = game->player.rot_angle - (FOV_ANGLE / 2);
 	i = 0;
-	// game->window.num_rays = 1;
-	while (i < game->window.num_rays)
+	// game->win.num_rays = 1;
+	while (i < game->win.num_rays)
 	{
 		ray = (t_ray*)malloc(sizeof(t_ray));
 		*ray = wall_hit(ray_angle, game);
 		tab_rays[i] = ray;
-		ray_angle += FOV_ANGLE / game->window.num_rays;
+		ray_angle += FOV_ANGLE / game->win.num_rays;
 		i++;
 	}
 	return (tab_rays);

@@ -15,5 +15,5 @@
 void		game_close(t_game *game)
 {
 	free_map(&game->map);
-	free_window(&game->window);
+	free_win(&game->win);
 }

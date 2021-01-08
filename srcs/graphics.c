@@ -12,20 +12,20 @@
 
 #include "../includes/cub3d.h"
 
-void		ft_mlx_pixel_put(t_window *window, int x, int y, int color)
+void		ft_mlx_pixel_put(t_win *win, int x, int y, int color)
 {
 	char		*dst;
 
-	if (x >= 0 && x < window->screen_width &&
-		y >= 0 && y < window->screen_height)
+	if (x >= 0 && x < win->width &&
+		y >= 0 && y < win->height)
 	{
-		dst = window->image.addr + (y * window->image.line_length +
-			x * (window->image.bits_per_pixel / 8));
+		dst = win->image.addr + (y * win->image.line_length +
+			x * (win->image.bits_per_pixel / 8));
 		*(unsigned int*)dst = color;
 	}
 }
 
-void		draw_lines(t_window *window, t_point a, t_point b, int color)
+void		draw_lines(t_win *win, t_point a, t_point b, int color)
 {
 	t_point		c;
 	float		length;
@@ -42,7 +42,7 @@ void		draw_lines(t_window *window, t_point a, t_point b, int color)
 	i = 0.0;
 	while (i < length)
 	{
-		ft_mlx_pixel_put(window, c.x, c.y, color);
+		ft_mlx_pixel_put(win, c.x, c.y, color);
 		c.x += add_point.x;
 		c.y += add_point.y;
 		i++;
@@ -54,7 +54,7 @@ int			create_trgb(int t, int r, int g, int b)
 	return (t << 24 | r << 16 | g << 8 | b);
 }
 
-void		cube(t_window *window, t_point a, int size, int color)
+void		cube(t_win *win, t_point a, int size, int color)
 {
 	int			i;
 	int			j;
@@ -65,14 +65,14 @@ void		cube(t_window *window, t_point a, int size, int color)
 		i = 0;
 		while (i <= size)
 		{
-			ft_mlx_pixel_put(window, a.x + i, a.y + j, color);
+			ft_mlx_pixel_put(win, a.x + i, a.y + j, color);
 			i++;
 		}
 		j++;
 	}
 }
 
-void		rect(t_window *window, t_point a, t_point coord, int color)
+void		rect(t_win *win, t_point a, t_point coord, int color)
 {
 	int			i;
 	int			j;
@@ -83,7 +83,7 @@ void		rect(t_window *window, t_point a, t_point coord, int color)
 		i = 0;
 		while (i < coord.y)
 		{
-			ft_mlx_pixel_put(window, a.x + j, a.y + i, color);
+			ft_mlx_pixel_put(win, a.x + j, a.y + i, color);
 			i++;
 		}
 		j++;

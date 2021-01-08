@@ -21,33 +21,34 @@ void		init_image(t_image *image)
 	image->endian = 0;
 }
 
-void		creat_images(t_window *window)
+void		creat_images(t_win *win)
 {
-	window->image.img = mlx_new_image(window->mlx_ptr, window->screen_width, window->screen_height);
-	window->image.addr = mlx_get_data_addr(window->image.img, &window->image.bits_per_pixel, &window->image.line_length, &window->image.endian);
+	win->image.img = mlx_new_image(win->mlx_ptr, win->width, win->height);
+	win->image.addr = mlx_get_data_addr(win->image.img, &win->image.bits_per_pixel,
+		&win->image.line_length, &win->image.endian);
 }
 
-void		free_image(t_window *window)
+void		free_image(t_win *win)
 {
 	// ft_putstr("mlx_destroy_image...");
-	mlx_destroy_image(window->mlx_ptr, window->image.img);
-	window->image.img = NULL;
-	window->image.addr = NULL;
+	mlx_destroy_image(win->mlx_ptr, win->image.img);
+	win->image.img = NULL;
+	win->image.addr = NULL;
 	// ft_putstr("ok\n");
 }
 
-void		clear_image(t_window *window)
+void		clear_image(t_win *win)
 {
 	int		x;
 	int		y;
 
 	y = 0;
-	while (y < window->screen_height)
+	while (y < win->height)
 	{
 		x = 0;
-		while (x < window->screen_width)
+		while (x < win->width)
 		{
-			ft_mlx_pixel_put(window, x, y, window->floor_color);
+			ft_mlx_pixel_put(win, x, y, win->f_color);
 			x++;
 		}
 		y++;
