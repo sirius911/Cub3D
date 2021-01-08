@@ -78,6 +78,5 @@ int				check_map(t_game *game)
 		ft_putstr_fd("Error\nMap isn't surrounded by walls\n", 2);
 		return (FALSE);
 	}
-
 	return (TRUE);
 }

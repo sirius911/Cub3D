@@ -12,7 +12,7 @@
 
 #include "../includes/cub3d.h"
 
-void			free_tab(void **tab)
+void			free_tab(char **tab)
 {
 	if (tab)
 	{
@@ -25,7 +25,7 @@ void			free_tab(void **tab)
 	}
 }
 
-void			free_rays(t_point **tab, int len)
+void			free_rays(t_ray **tab, int len)
 {
 	int		i;
 
@@ -43,9 +43,6 @@ void			free_rays(t_point **tab, int len)
 
 int				is_number(char *str)
 {
-	int			i;
-
-	i = 0;
 	while (*str)
 	{
 		if (!ft_isdigit(*str))
@@ -72,5 +69,8 @@ float			normalize_angle(float angle)
 
 float			distance(t_point a, t_point b)
 {
-	return (sqrt((b.x - a.x) * (b.x - a.x) + (b.y - a.y) * (b.y - a.y)));
+	if (a.x >= 0 && b.x >= 0)
+		return (sqrt((b.x - a.x) * (b.x - a.x) + (b.y - a.y) * (b.y - a.y)));
+	else
+		return (FLT_MAX);
 }

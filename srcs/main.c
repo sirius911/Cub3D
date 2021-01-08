@@ -23,18 +23,18 @@
 
 static void		contine(t_game *game)
 {
-	ft_putendl("tableaux : ");
-	for (unsigned int y = 0; y < game->map.num_rows; y++)
-	{
-		ft_putstr("<");
-		for (unsigned int x = 0; x < game->map.num_cols; x++)
-		{
-			ft_putchar('.');
-			ft_putchar(game->map.tab[y][x]);
-			ft_putchar('.');
-		}
-		ft_putendl(">");
-	}
+	// ft_putendl("tableaux : ");
+	// for (unsigned int y = 0; y < game->map.num_rows; y++)
+	// {
+	// 	ft_putstr("<");
+	// 	for (unsigned int x = 0; x < game->map.num_cols; x++)
+	// 	{
+	// 		ft_putchar('.');
+	// 		ft_putchar(game->map.tab[y][x]);
+	// 		ft_putchar('.');
+	// 	}
+	// 	ft_putendl(">");
+	// }
 	printf("screen size : width = %d\theight = %d\n", game->window.screen_width, game->window.screen_height);
 	printf("position x =%f\ty=%f rot = %f\n", game->player.coord.x, game->player.coord.y, game->player.rot_angle);
 	mlx_hook(game->window.win_ptr, 2, 1L<<0, deal_key, game);
@@ -62,35 +62,32 @@ static int		load_file(t_game *game, char *file_name)
 	}
 	while (ret && nb_oct > 0)
 	{
-		nb_oct = get_next_line(fd, &line); 
+		nb_oct = get_next_line(fd, &line);
+		// printf("\t => %s\n", line);
+		// printf("Avant parse_line\n");
 		ret = ret && parse_line(line, game, &list);
-		free(line);
+		// printf("Apres parse_line\n");
+		free (line);
 	}
+	// printf("Sortie de boucle\n");
 	ret = ret && map_setup(game, list);
+	// printf("Avant lstclear\n");
 	ft_lstclear(&list, &free_list);
+	// printf("Apres lstclear\n");
 	close(fd);
+	free(list);
 	return (ret && check_map(game));
 }
 
 static void		init(char *file_name, int save)
 {
 	t_game		game;
-	t_window	window;
-	t_player	player;
-	t_map		map;
-	t_image		image;
 
-	window.mlx_ptr = NULL;
-	window.win_ptr = NULL;
-	init_window(&window);
-	init_player(&player);
-	init_map(&map, file_name);
-	init_image(&image);
-	window.image = image;
-	game.player = player;
-	game.map = map;
-	game.window = window;
+	init_window(&game.window);
+	init_player(&game.player);
+	init_map(&game.map, file_name);
 	game.save = save;
+	//no leaks
 	if (load_file(&game, file_name))
 		contine(&game);
 	else

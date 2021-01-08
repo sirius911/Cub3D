@@ -12,28 +12,29 @@
 
 #include "../includes/cub3d.h"
 
-static void	ft_mlx_pixel_put(t_window *window, int x, int y, int color)
+void		ft_mlx_pixel_put(t_window *window, int x, int y, int color)
 {
-	char	*dst;
+	char		*dst;
 
-	if (x >= 0 && x < window->screen_width && y >= 0 && y < window->screen_height)
+	if (x >= 0 && x < window->screen_width &&
+		y >= 0 && y < window->screen_height)
 	{
-		dst = window->image.addr + (y * window->image.line_length + x * (window->image.bits_per_pixel / 8));
+		dst = window->image.addr + (y * window->image.line_length +
+			x * (window->image.bits_per_pixel / 8));
 		*(unsigned int*)dst = color;
 	}
 }
 
-void draw_lines(t_window *window, t_point a, t_point b, int color)
+void		draw_lines(t_window *window, t_point a, t_point b, int color)
 {
-	t_point c;
-	float 	length;
+	t_point		c;
+	float		length;
 	t_point		add_point;
-	float	i;
+	float		i;
 
 	c.x = b.x - a.x;
 	c.y = b.y - a.y;
-
-	length = sqrt( c.x * c.x + c.y * c.y);
+	length = sqrt(c.x * c.x + c.y * c.y);
 	add_point.x = c.x / length;
 	add_point.y = c.y / length;
 	c.x = a.x;
@@ -42,49 +43,49 @@ void draw_lines(t_window *window, t_point a, t_point b, int color)
 	while (i < length)
 	{
 		ft_mlx_pixel_put(window, c.x, c.y, color);
-  		c.x += add_point.x;
- 		c.y += add_point.y;
+		c.x += add_point.x;
+		c.y += add_point.y;
 		i++;
 	}
 }
-
-// static void	grid(t_window *window, t_point a, int size, int color)
-// {
-// 	t_point	b;
-// 	t_point	c;
-// 	b.x = a.x + size;
-// 	b.y = a.y;
-// 	draw_lines(window, a, b, color);
-// 	b.x = a.x;
-// 	b.y = a.y + size;
-// 	draw_lines(window, a, b, color);
-// 	b.x = a.x + size;
-// 	b.y = a.y;
-// 	c.x = a.x + size;
-// 	c.y = a.y + size;
-// 	draw_lines(window, b, c, color);
-// }
 
 int			create_trgb(int t, int r, int g, int b)
 {
 	return (t << 24 | r << 16 | g << 8 | b);
 }
 
-void	cube(t_window *window, t_point a, int size, int color)
+void		cube(t_window *window, t_point a, int size, int color)
 {
-	int		i;
-	int 	j;
+	int			i;
+	int			j;
 
 	j = 0;
 	while (j <= size)
 	{
 		i = 0;
-		while ( i <= size)
+		while (i <= size)
 		{
 			ft_mlx_pixel_put(window, a.x + i, a.y + j, color);
 			i++;
 		}
 		j++;
 	}
-	//grid(window, a, size, NONE);
+}
+
+void		rect(t_window *window, t_point a, t_point coord, int color)
+{
+	int			i;
+	int			j;
+
+	j = 0;
+	while (j < coord.x)
+	{
+		i = 0;
+		while (i < coord.y)
+		{
+			ft_mlx_pixel_put(window, a.x + j, a.y + i, color);
+			i++;
+		}
+		j++;
+	}
 }

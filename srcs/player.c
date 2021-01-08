@@ -14,6 +14,7 @@
 
 void		init_player(t_player *player)
 {
+	printf("Init player ...");
 	player->coord.x = -1;
 	player->coord.y = -1;
 	player->radius = 2;
@@ -22,6 +23,7 @@ void		init_player(t_player *player)
 	player->rot_angle = 0;
 	player->move_speed = 10.0;
 	player->rot_speed = 4 * (M_PI / 180);
+	printf("ok\n");
 }
 
 static int			valid_pos_player(t_game *game, int x, int y, char dir)

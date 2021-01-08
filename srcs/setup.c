@@ -12,13 +12,13 @@
 
 #include "../includes/cub3d.h"
 
-static int		mlx_get_screen_size(void *mlx_ptr, int *sizex, int *sizey)
-{
-	(void)mlx_ptr;
-	*sizex = 1920;
-	*sizey = 1080;
-	return (0);
-}
+// static int		mlx_get_screen_size(void *mlx_ptr, int *sizex, int *sizey)
+// {
+// 	(void)mlx_ptr;
+// 	*sizex = 1920;
+// 	*sizey = 1080;
+// 	return (0);
+// }
 
 static int		valid_mlx(t_game *game)
 {
@@ -29,6 +29,7 @@ static int		valid_mlx(t_game *game)
 	{
 		game->window.mlx_ptr = mlx_init();
 		mlx_get_screen_size(game->window.mlx_ptr, &resol_x, &resol_y);
+		printf("screen_size = (%d,%d)\n", resol_x, resol_y);
 		if (game->window.screen_width > resol_x)
 			game->window.screen_width = resol_x;
 		if (game->window.screen_height > resol_y)

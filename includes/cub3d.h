@@ -25,12 +25,12 @@
 //# define PI 3.14159265
 # define FOV_ANGLE 1.04719755
 # define WALL_STRIP_WIDTH 1
-# define KEY_ESC	53
+# define KEY_ESC	65307//53
 # define KEY_M		46
-# define KEY_LEFT	123
-# define KEY_RIGHT	124
-# define KEY_UP		126
-# define KEY_DOWN	125
+# define KEY_LEFT	65361//123
+# define KEY_RIGHT	65363//124
+# define KEY_UP		65362//126
+# define KEY_DOWN	65364//125
 # define SIZE_MINI_MAP 0.3
 # define NONE 0xFF000000
 # define GRAY 0x00AAAAAA
@@ -42,6 +42,11 @@
 # define MAGENTA 0x00FF00FF
 # define YELLOW 0x00FFFF00
 # define CYAN 0x0000FFFF
+# define NORTH 0
+# define EAST 1
+# define SOUTH 2
+# define WEST 3
+# define SPRITE 4
 
 typedef struct	s_point
 {
@@ -116,8 +121,8 @@ void			init_map(t_map *map, char *file_name);
 void			init_player(t_player *player);
 void			init_image(t_image *image);
 void			init_window(t_window *window);
-void			free_tab(void **tab);
-void			free_rays(t_point **tab, int len);
+void			free_tab(char **tab);
+void			free_rays(t_ray **tab, int len);
 int				is_number(char *str);
 int				setup_resol(t_game *game, char **tab);
 int				setup_color(t_game *game, char **tab);
@@ -130,7 +135,7 @@ int				map_setup(t_game *game, t_list *list);
 void			free_map(t_map *map);
 void			game_close(t_game *game);
 void			free_window(t_window *window);
-void			free_image(t_image *image);
+void			free_image(t_window *window);
 int				check_map(t_game *game);
 int				check_player_pos(t_game *game);
 void			creat_images(t_window *window);
@@ -141,9 +146,14 @@ void			cube(t_window *window, t_point point, int size, int color);
 void			draw_lines(t_window *window, t_point a, t_point b, int color);
 void			update_player(t_game *game);
 int				is_wall_at(t_game *game, t_point pos);
+char			type_wall(t_game *game, t_point);
 float			normalize_angle(float angle);
 float			distance(t_point a, t_point b);
-t_point			**cast_all_rays(t_game *game);
+t_ray			**cast_all_rays(t_game *game);
+int				find_color(int wall);
+void 			rect(t_window *window, t_point a, t_point coord, int color);
+void			clear_image(t_window *window);
+void			ft_mlx_pixel_put(t_window *window, int x, int y, int color);
 void			ft_print_list(t_list *list);
 
 #endif

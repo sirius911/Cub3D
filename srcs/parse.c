@@ -40,7 +40,7 @@ int				parse_color(char *str)
 		i++;
 	}
 	color = create_trgb(0x0, color_tab[0], color_tab[1], color_tab[2]);
-	free_tab((void**)rgb);
+	free_tab(rgb);
 	free(rgb);
 	return (color);
 }
@@ -48,16 +48,19 @@ int				parse_color(char *str)
 int				parse_line(char *line, t_game *game, t_list **list)
 {
 	char		**tab_line;
+	char		**debut;
 	int			ret;
 
 	ret = TRUE;
 	tab_line = ft_split(line, ' ');
+	debut = tab_line;
 	while (*tab_line)
 	{
 		if (*tab_line[0] == 'R')
 		{
 			ret = ret && setup_resol(game, tab_line);
-			tab_line += 2;
+			// tab_line += 2;
+			break;
 		}
 		else if (ft_strequ(*tab_line, "NO") || ft_strequ(*tab_line, "SO")
 			|| ft_strequ(*tab_line, "WE") || ft_strequ(*tab_line, "EA")
@@ -75,6 +78,7 @@ int				parse_line(char *line, t_game *game, t_list **list)
 		}
 		tab_line++;
 	}
-	free_tab((void**)tab_line);
+	free_tab(debut);
+	free(debut);
 	return (ret);
 }

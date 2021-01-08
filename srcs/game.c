@@ -15,7 +15,5 @@
 void		game_close(t_game *game)
 {
 	free_map(&game->map);
-	//game->map = (void *)NULL;
 	free_window(&game->window);
-	//game->window = (void *)NULL;
 }

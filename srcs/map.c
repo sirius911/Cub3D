@@ -30,10 +30,12 @@ static int	nb_col(t_list *list)
 
 void		init_map(t_map *map, char *file_name)
 {
+	printf("Init map ...");
 	map->name = ft_strdup(file_name);
 	map->tab = NULL;
 	map->num_rows = 0;
 	map->num_cols = 0;
+	printf("ok\n");
 }
 
 void	free_map(t_map *map)

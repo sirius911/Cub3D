@@ -21,24 +21,35 @@ void		init_image(t_image *image)
 	image->endian = 0;
 }
 
-void		free_image(t_image *image)
-{
-	if (image->img)
-	{
-		free(image->img);
-		image->img = NULL;
-		ft_putstr("free image->img ...ok\n");		
-	}
-	if (image->addr)
-	{
-		free(image->addr);
-		image->addr = NULL;
-		ft_putstr("free image->adr ...ok\n");
-	}
-}
-
 void		creat_images(t_window *window)
 {
 	window->image.img = mlx_new_image(window->mlx_ptr, window->screen_width, window->screen_height);
 	window->image.addr = mlx_get_data_addr(window->image.img, &window->image.bits_per_pixel, &window->image.line_length, &window->image.endian);
+}
+
+void		free_image(t_window *window)
+{
+	// ft_putstr("mlx_destroy_image...");
+	mlx_destroy_image(window->mlx_ptr, window->image.img);
+	window->image.img = NULL;
+	window->image.addr = NULL;
+	// ft_putstr("ok\n");
+}
+
+void		clear_image(t_window *window)
+{
+	int		x;
+	int		y;
+
+	y = 0;
+	while (y < window->screen_height)
+	{
+		x = 0;
+		while (x < window->screen_width)
+		{
+			ft_mlx_pixel_put(window, x, y, window->floor_color);
+			x++;
+		}
+		y++;
+	}
 }

@@ -146,59 +146,98 @@ t_point			vert_wall_hit(float ray_angle, t_game *game)
 	return (no_point);
 }
 
-t_point			wall_hit(float ray_angle, t_game *game)
+void			fill_ray(t_ray *ray, float dist, t_point wall, float angle)
+{
+	ray->dist = dist;
+	ray->wall_hit = wall;
+	ray->ray_angle = angle;
+}
+
+void			wall(t_game *game, t_ray *ray, t_point touch, int hz)
+{
+	if (type_wall(game, touch) == '1')
+	{
+		if(!hz)
+		{
+			if (is_ray_facing_left(ray->ray_angle))
+				ray->wall_content = EAST;
+			else
+				ray->wall_content = WEST;
+		}
+		else
+		{
+			if (is_ray_facing_up(ray->ray_angle))
+				ray->wall_content = NORTH;
+			else
+				ray->wall_content = SOUTH;
+		}
+	}
+	else
+		ray->wall_content = SPRITE;	
+}
+
+void			typ_ray(t_game *game, t_ray *ray, int hz)
+{
+	t_point		touch;
+
+	touch = ray->wall_hit;
+	if (!hz && is_ray_facing_left(ray->ray_angle))
+		touch.x -= 1;
+	if (hz && is_ray_facing_up(ray->ray_angle))
+		touch.y -= 1;
+	wall(game, ray, touch, hz);
+}
+
+t_ray			wall_hit(float ray_angle, t_game *game)
 {
 	float		vert_hit_distance;
 	float		horz_hit_distance;
 	t_point		horz_coord_wall;
 	t_point		vert_coord_wall;
+	t_ray		ray;
 
 	ray_angle = normalize_angle(ray_angle);
 	horz_coord_wall = horz_wall_hit(ray_angle, game);
 	vert_coord_wall = vert_wall_hit(ray_angle, game);
-	if (horz_coord_wall.x >= 0)
-		horz_hit_distance = distance(game->player.coord, horz_coord_wall);
-	else
-		horz_hit_distance = FLT_MAX;
-	if (vert_coord_wall.x >= 0)
-		vert_hit_distance = distance(game->player.coord, vert_coord_wall);
-	else
-		vert_hit_distance = FLT_MAX;
+	horz_hit_distance = distance(game->player.coord, horz_coord_wall);
+	vert_hit_distance = distance(game->player.coord, vert_coord_wall);
 	if (vert_hit_distance < horz_hit_distance)
-		return (vert_coord_wall);
+	{
+		fill_ray(&ray, vert_hit_distance, vert_coord_wall, ray_angle);
+		typ_ray(game, &ray, FALSE);
+	}
 	else
-		return (horz_coord_wall);
+	{
+		fill_ray(&ray, horz_hit_distance, horz_coord_wall, ray_angle);
+		typ_ray(game, &ray, TRUE);
+	}
+	return (ray);
 }
 
-void			ft_print(void *x)
-{
-	t_point		*p;
-	p = (t_point *)x;
-	printf("(%f, %f)\n", p->x, p->y);
-}
-
-t_point			**cast_all_rays(t_game *game)
+t_ray			**cast_all_rays(t_game *game)
 {
 	float		ray_angle;
 	int			i;
-	t_point		*point;
-	t_point		**rays;
+	t_ray		*ray;
+	t_ray		**tab_rays;
 
-	rays = (t_point**)malloc(sizeof(t_point) * game->window.num_rays);
-	if(!rays)
+
+	tab_rays = (t_ray**)malloc(sizeof(t_ray) * game->window.num_rays);
+	if(!tab_rays)
 	{
 		ft_putstr_fd("Error\nMalloc() fail\n", 2);
 		game_close(game);
 	}
 	ray_angle = game->player.rot_angle - (FOV_ANGLE / 2);
 	i = 0;
+	// game->window.num_rays = 1;
 	while (i < game->window.num_rays)
 	{
-		point = (t_point*)malloc(sizeof(t_point));
-		*point = wall_hit(ray_angle, game);
-		rays[i] = point;
+		ray = (t_ray*)malloc(sizeof(t_ray));
+		*ray = wall_hit(ray_angle, game);
+		tab_rays[i] = ray;
 		ray_angle += FOV_ANGLE / game->window.num_rays;
 		i++;
 	}
-	return (rays);
+	return (tab_rays);
 }
