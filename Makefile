@@ -36,7 +36,7 @@ all : $(NAME)
 
 $(NAME): $(OBJ)
 	@make -C libft/
-	@$(CC) $(FLAGS) $(HEADER) $(OBJ) -o $(NAME) -L libft/ -lft -L./minilibx -lmlx -lXext -lX11 -lm -lz
+	@$(CC) $(FLAGS) $(HEADER) $(OBJ) -o $(NAME) -L libft/ -lft -L./minilibx -lmlx -lXext -lX11 -lm
 	@echo "création de Cub3D : \033[32mok\033[0m"
 
 clean:

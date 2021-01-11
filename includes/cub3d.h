@@ -111,6 +111,9 @@ typedef struct	s_texture
 	void			*addr;
 	int				width;
 	int				height;
+	int				bits_per_pixel;
+	int				line_length;
+	int				endian;
 }				t_texture;
 
 typedef struct	s_win
@@ -174,7 +177,7 @@ void 			rect(t_win *win, t_point a, t_point coord, int color);
 void			clear_image(t_win *win);
 void			ft_mlx_pixel_put(t_win *win, int x, int y, int color);
 void			init_texture(t_game *game, char *file);
-void			free_texture(t_texture *texture);
+void			free_texture(t_win *win, t_texture *texture);
 void			ft_print_list(t_list *list);
 
 #endif

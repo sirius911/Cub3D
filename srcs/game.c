@@ -14,7 +14,7 @@
 
 void		game_close(t_game *game)
 {
-	free_texture(&game->texture);
+	free_texture(&game->win, &game->texture);
 	free_map(&game->map);
 	free_win(&game->win);
 }

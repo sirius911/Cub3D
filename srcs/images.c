@@ -55,21 +55,3 @@ void		free_image(t_win *win)
 	win->image.addr = NULL;
 	// ft_putstr("ok\n");
 }
-
-void		clear_image(t_win *win)
-{
-	int		x;
-	int		y;
-
-	y = 0;
-	while (y < win->height)
-	{
-		x = 0;
-		while (x < win->width)
-		{
-			ft_mlx_pixel_put(win, x, y, win->f_color);
-			x++;
-		}
-		y++;
-	}
-}

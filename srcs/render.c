@@ -101,6 +101,7 @@ static void			show_line(t_game *game, int x, t_ray ray, int wall_height)
 	int				off_x;
 	int				off_y;
 	int				dis_top;
+	char			*dst;
 
 	i = 0;
 	while (i < ray.top_pixel)
@@ -113,9 +114,11 @@ static void			show_line(t_game *game, int x, t_ray ray, int wall_height)
 		//off_x = ((int)ray.wall_hit.x % 1) * 64;
 	while (i < ray.bot_pixel)
 	{
-		dis_top = i + wall_height / 2 - game->win.height / 2;// * (64/wall_height);
+		dis_top = (i + wall_height / 2 - game->win.height / 2);// * (64/wall_height);
 		off_y = dis_top * ((float)64 / wall_height); 
-		tex_color = game->texture.data[(64 * off_y) + off_x ];;
+		tex_color = game->texture.data[(64 * off_y) + off_x ];
+		dst = game->texture.addr + (off_y * game->texture.line_length + off_x * (game->texture.bits_per_pixel) / 8);
+		//tex_color = (*(unsigned int*)dst);
 		ft_mlx_pixel_put(&game->win, x, i++, tex_color);
 	}
 	while (i < game->win.height)
@@ -160,6 +163,19 @@ void			render(t_game *game)
 	render_ray_map(game, tab_rays);
 	render_player(game);
 	free_rays(tab_rays, game->win.num_rays);
+
+for(int x = 0; x < 64; x++)
+{
+	for(int y = 0; y < 64; y++)
+	{
+		char *dst = game->texture.addr + (y * game->texture.line_length + x * (game->texture.bits_per_pixel / 8));
+		//*(unsigned int*)dst = RED;
+		//ft_mlx_pixel_put(&game->win, x + 100 , y + 100, color);
+		printf("%p = %X\n", dst, *dst);
+	}
+}
+
 	mlx_put_image_to_window(game->win.mlx_ptr, game->win.win_ptr,
-		game->win.image.img, 0, 0);
+	game->win.image.img, 0, 0);
+	mlx_put_image_to_window(game->win.mlx_ptr,game->win.win_ptr, game->texture.addr,100, 100);
 }
