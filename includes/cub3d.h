@@ -25,12 +25,16 @@
 //# define PI 3.14159265
 # define FOV_ANGLE 1.04719755
 # define WALL_STRIP_WIDTH 1
-# define KEY_ESC	53//65307//
+# define KEY_A 97
+# define KEY_W 119
+# define KEY_S 115
+# define KEY_D 100
+# define KEY_ESC	65307//53//
 # define KEY_M		46
-# define KEY_LEFT	123//65361//
-# define KEY_RIGHT	124//65363//
-# define KEY_UP		126//65362//
-# define KEY_DOWN	125//65364//
+# define KEY_LEFT	65361//123//
+# define KEY_RIGHT	65363//124//
+# define KEY_UP		65362//126//
+# define KEY_DOWN	65364//125//
 # define SIZE_MINI_MAP 0.2
 # define NONE 0xFF000000
 # define GRAY 0x00AAAAAA
@@ -81,6 +85,8 @@ typedef struct	s_image
 {
 	void			*img;
 	char			*addr;
+	int				width;
+	int				height;
 	int				bits_per_pixel;
 	int				line_length;
 	int				endian;
@@ -92,10 +98,20 @@ typedef struct	s_player
 	float			radius;
 	int				turn_dir;
 	int				walk_dir;
+	int				trans_dir;
 	float			rot_angle;
 	float			move_speed;
 	float			rot_speed;
 }				t_player;
+
+typedef struct	s_texture
+{
+	char			*file;
+	int				*data;
+	void			*addr;
+	int				width;
+	int				height;
+}				t_texture;
 
 typedef struct	s_win
 {
@@ -113,10 +129,11 @@ typedef struct	s_win
 
 typedef struct	s_game
 {
-	t_win		win;
+	t_win			win;
 	t_map			map;
 	t_player		player;
 	int				save;
+	t_texture		texture;
 }				t_game;
 
 void			init_map(t_map *map, char *file_name);
@@ -156,6 +173,8 @@ int				find_color(int wall);
 void 			rect(t_win *win, t_point a, t_point coord, int color);
 void			clear_image(t_win *win);
 void			ft_mlx_pixel_put(t_win *win, int x, int y, int color);
+void			init_texture(t_game *game, char *file);
+void			free_texture(t_texture *texture);
 void			ft_print_list(t_list *list);
 
 #endif

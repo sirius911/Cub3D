@@ -17,9 +17,10 @@ void		init_player(t_player *player)
 	printf("Init player ...");
 	player->coord.x = -1;
 	player->coord.y = -1;
-	player->radius = 2;
+	//player->radius = 2;
 	player->turn_dir = 0;
 	player->walk_dir = 0;
+	player->trans_dir = 0;
 	player->rot_angle = 0;
 	player->move_speed = 10.0;
 	player->rot_speed = 4 * (M_PI / 180);
@@ -39,7 +40,7 @@ static int			valid_pos_player(t_game *game, int x, int y, char dir)
 		else if(dir == 'W')
 			game->player.rot_angle = M_PI;
 		else
-			game->player.rot_angle = 3 * M_PI / 2;
+			game->player.rot_angle = 1.5 * M_PI;
 		return (TRUE);
 	}
 	else
@@ -64,8 +65,8 @@ int			check_player_pos(t_game *game)
 		{
 			if (ft_strchr("NSEW", game->map.tab[y][x]))
 			{
-				game->map.tab[y][x] = '0';
 				ret = valid_pos_player(game, x, y, game->map.tab[y][x]);
+				game->map.tab[y][x] = '0';
 			}
 			x++;
 		}
@@ -79,12 +80,22 @@ int			check_player_pos(t_game *game)
 void		update_player(t_game *game)
 {
 	float			move_step;
+	float			angle_trans;
 	t_point			new_pos;
 
 	game->player.rot_angle += game->player.turn_dir * game->player.rot_speed;
-	move_step = game->player.walk_dir * game->player.move_speed;
-	new_pos.x = game->player.coord.x + cos(game->player.rot_angle) * move_step;
-	new_pos.y = game->player.coord.y + sin(game->player.rot_angle) * move_step;
+	if (game->player.trans_dir != 0)
+	{
+		angle_trans = game->player.rot_angle +((M_PI / 2) * game->player.trans_dir);
+		new_pos.x = game->player.coord.x + cos(angle_trans) * game->player.move_speed;
+		new_pos.y = game->player.coord.y + sin(angle_trans) * game->player.move_speed;
+	}
+	else
+	{
+		move_step = game->player.walk_dir * game->player.move_speed;
+		new_pos.x = game->player.coord.x + cos(game->player.rot_angle) * move_step;
+		new_pos.y = game->player.coord.y + sin(game->player.rot_angle) * move_step;
+	}
 	if (!is_wall_at(game, new_pos))
 	{
 		game->player.coord = new_pos;

@@ -93,6 +93,7 @@ int			map_setup(t_game *game, t_list *list)
 	game->map.num_rows = max_line;
 	game->map.num_cols = max_col;
 	game->win.t_size = game->win.width / game->map.num_cols;
+	//game->win.t_size = 64;
 	if ((game->win.height / game->map.num_rows) < game->win.t_size)
 		game->win.t_size = game->win.height / game->map.num_rows;
 	game->map.tab = (char **) malloc(sizeof(char *) * max_line);

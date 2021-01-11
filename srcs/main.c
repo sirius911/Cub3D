@@ -37,6 +37,7 @@ static void		contine(t_game *game)
 	// }
 	printf("screen size : width = %d\theight = %d\n", game->win.width, game->win.height);
 	printf("position x =%f\ty=%f rot = %f\n", game->player.coord.x, game->player.coord.y, game->player.rot_angle);
+	printf("TILE_SIZE = %d\n",game->win.t_size);
 	mlx_hook(game->win.win_ptr, 2, 1L<<0, deal_key, game);
 	mlx_hook(game->win.win_ptr, 3, 1L<<1, release_key, game);
 	render(game);
@@ -74,6 +75,7 @@ static int		load_file(t_game *game, char *file_name)
 	// printf("Avant lstclear\n");
 	ft_lstclear(&list, &free_list);
 	// printf("Apres lstclear\n");
+	init_texture(game, "textures/brick.xpm"); 
 	close(fd);
 	free(list);
 	return (ret && check_map(game));

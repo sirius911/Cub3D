@@ -105,7 +105,7 @@ static char			*save_static(char *str)
 
 static int			check_input(char *buffer, const int fd, char **line)
 {
-	if (fd < 0 || fd > MAX_FD || !line || BUFFER_SIZE <= 0 || !buffer ||
+	if (fd < 0 || !line || BUFFER_SIZE <= 0 || !buffer ||
 	read(fd, NULL, 0) < 0)
 	{
 		if (buffer)
@@ -130,7 +130,7 @@ static int			check_input(char *buffer, const int fd, char **line)
 
 int					get_next_line(const int fd, char **line)
 {
-	static char		*str_static[MAX_FD];
+	static char		*str_static;
 	char			*buffer;
 	int				result;
 
@@ -138,7 +138,7 @@ int					get_next_line(const int fd, char **line)
 	if (!check_input(buffer, fd, line))
 		return (-1);
 	result = 1;
-	while (!nl_line(str_static[fd]) && result != 0)
+	while (!nl_line(str_static) && result != 0)
 	{
 		result = read(fd, buffer, BUFFER_SIZE);
 		if (result == -1)
@@ -147,11 +147,13 @@ int					get_next_line(const int fd, char **line)
 			return (-1);
 		}
 		buffer[result] = '\0';
-		str_static[fd] = strjoin_gnl(str_static[fd], buffer);
+		str_static = strjoin_gnl(str_static, buffer);
 	}
 	free(buffer);
-	*line = recup_line(str_static[fd]);
-	str_static[fd] = save_static(str_static[fd]);
-	result = (result == 0 && ft_strlen(str_static[fd]) == 0) ? 0 : 1;
+	*line = recup_line(str_static);
+	str_static = save_static(str_static);
+	result = (result == 0 && ft_strlen(str_static) == 0) ? 0 : 1;
+	if (result == 0)
+		free(str_static);
 	return (result);
 }

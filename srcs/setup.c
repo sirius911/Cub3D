@@ -12,13 +12,13 @@
 
 #include "../includes/cub3d.h"
 
-static int		mlx_get_screen_size(void *mlx_ptr, int *sizex, int *sizey)
-{
-	(void)mlx_ptr;
-	*sizex = 1920;
-	*sizey = 1080;
-	return (0);
-}
+// static int		mlx_get_screen_size(void *mlx_ptr, int *sizex, int *sizey)
+// {
+// 	(void)mlx_ptr;
+// 	*sizex = 1920;
+// 	*sizey = 1080;
+// 	return (0);
+// }
 
 static int		valid_mlx(t_game *game)
 {
@@ -37,6 +37,7 @@ static int		valid_mlx(t_game *game)
 		game->win.win_ptr = mlx_new_window(game->win.mlx_ptr,
 		game->win.width, game->win.height, game->map.name);
 		creat_images(&game->win);
+		//game->win.image = creat_images(&game->win.mlx_ptr, game->win.width, game->win.height);
 		game->win.num_rays = game->win.width / WALL_STRIP_WIDTH;
 		return (TRUE);
 	}

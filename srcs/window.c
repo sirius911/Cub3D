@@ -22,7 +22,7 @@ void		init_win(t_win *win)
 	win->c_color = 0;
 	win->f_color = 0;
 	win->t_size = 0;
-	win->image.img = NULL;
+	//win->image->img = NULL;
 	printf("ok\n");
 }
 

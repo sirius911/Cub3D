@@ -1,20 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   game.c                                             :+:      :+:    :+:   */
+/*   alloc-wrap.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/30 13:39:25 by clorin            #+#    #+#             */
-/*   Updated: 2020/12/30 13:39:32 by clorin           ###   ########.fr       */
+/*   Created: 2020/11/24 16:59:58 by clorin            #+#    #+#             */
+/*   Updated: 2020/11/24 17:00:05 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
-
-void		game_close(t_game *game)
-{
-	free_texture(&game->texture);
-	free_map(&game->map);
-	free_win(&game->win);
-}
+#ifndef ALLOC_WRAP_H
+# define ALLOC_WRAP_H
+# define MAX_MALLOC 10000
+#endif

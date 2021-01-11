@@ -94,15 +94,30 @@ void			render_ray_map(t_game *game, t_ray **rays)
 	}
 }
 
-void			show_line(t_game *game, int x, t_ray ray)
+static void			show_line(t_game *game, int x, t_ray ray, int wall_height)
 {
 	int				i;
+	int				tex_color;
+	int				off_x;
+	int				off_y;
+	int				dis_top;
 
 	i = 0;
 	while (i < ray.top_pixel)
 		ft_mlx_pixel_put(&game->win, x, i++, game->win.c_color);
+	if (ray.id == EAST || ray.id == WEST)
+		off_x = (int)ray.wall_hit.y % game->win.t_size;
+		//off_x = ((int)ray.wall_hit.y % 1) * 64;
+	else
+		off_x = (int)ray.wall_hit.x % game->win.t_size;
+		//off_x = ((int)ray.wall_hit.x % 1) * 64;
 	while (i < ray.bot_pixel)
-		ft_mlx_pixel_put(&game->win, x, i++, find_color(ray.id));
+	{
+		dis_top = i + wall_height / 2 - game->win.height / 2;// * (64/wall_height);
+		off_y = dis_top * ((float)64 / wall_height); 
+		tex_color = game->texture.data[(64 * off_y) + off_x ];;
+		ft_mlx_pixel_put(&game->win, x, i++, tex_color);
+	}
 	while (i < game->win.height)
 		ft_mlx_pixel_put(&game->win, x, i++, game->win.f_color);
 }
@@ -130,7 +145,7 @@ void			gen_3d(t_game *game, t_ray **tab_rays)
 			bot_pixel = game->win.height;
 		tab_rays[i]->top_pixel = top_pixel;
 		tab_rays[i]->bot_pixel = bot_pixel;
-		show_line(game, i, *tab_rays[i]);
+		show_line(game, i, *tab_rays[i], (int)wall_height);
 		i++;
 	}
 }
