@@ -24,34 +24,13 @@ void		init_image(t_image *image)
 void		creat_images(t_win *win)
 {
 	win->image.img = mlx_new_image(win->mlx_ptr, win->width, win->height);
-	win->image.addr = mlx_get_data_addr(win->image.img, &win->image.bits_per_pixel,
-		&win->image.line_length, &win->image.endian);
+	win->image.addr = mlx_get_data_addr(win->image.img,
+	&win->image.bits_per_pixel, &win->image.line_length, &win->image.endian);
 }
-
-// t_image		*creat_images(void *mlx_ptr, int width, int height)
-// {
-// 	t_image		*image;
-
-// 	image = (t_image*)malloc(sizeof(t_image));
-// 	if (image)
-// 	{
-// 		image->img = mlx_new_image(mlx_ptr, width, height);
-// 		image->addr = mlx_get_data_addr(image->img, &image->bits_per_pixel,
-// 			&image->line_length, &image->endian);
-// 		return (image);
-// 	}
-// 	else
-// 	{
-// 		// erreur malloc
-// 		return (NULL);
-// 	}
-// }
 
 void		free_image(t_win *win)
 {
-	// ft_putstr("mlx_destroy_image...");
 	mlx_destroy_image(win->mlx_ptr, win->image.img);
 	win->image.img = NULL;
 	win->image.addr = NULL;
-	// ft_putstr("ok\n");
 }

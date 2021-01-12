@@ -6,40 +6,19 @@
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 13:45:14 by clorin            #+#    #+#             */
-/*   Updated: 2020/12/23 13:47:56 by clorin           ###   ########.fr       */
+/*   Updated: 2021/01/12 16:37:36 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-// void		ft_print_list(t_list *list)
-// {
-// 	while (list)
-// 	{
-// 		ft_putendl(list->content);
-// 		list = list->next;
-// 	}
-// }
-
 static void		contine(t_game *game)
 {
-	// ft_putendl("tableaux : ");
-	// for (unsigned int y = 0; y < game->map.num_rows; y++)
-	// {
-	// 	ft_putstr("<");
-	// 	for (unsigned int x = 0; x < game->map.num_cols; x++)
-	// 	{
-	// 		ft_putchar('.');
-	// 		ft_putchar(game->map.tab[y][x]);
-	// 		ft_putchar('.');
-	// 	}
-	// 	ft_putendl(">");
-	// }
 	printf("screen size : width = %d\theight = %d\n", game->win.width, game->win.height);
 	printf("position x =%f\ty=%f rot = %f\n", game->player.coord.x, game->player.coord.y, game->player.rot_angle);
-	printf("TILE_SIZE = %d\n",game->win.t_size);
-	mlx_hook(game->win.win_ptr, 2, 1L<<0, deal_key, game);
-	mlx_hook(game->win.win_ptr, 3, 1L<<1, release_key, game);
+	printf("TILE_SIZE = %d\n", game->win.t_size);
+	mlx_hook(game->win.win_ptr, 2, 1L << 0, deal_key, game);
+	mlx_hook(game->win.win_ptr, 3, 1L << 1, release_key, game);
 	render(game);
 	mlx_loop(game->win.mlx_ptr);
 }
@@ -64,20 +43,11 @@ static int		load_file(t_game *game, char *file_name)
 	while (ret && nb_oct > 0)
 	{
 		nb_oct = get_next_line(fd, &line);
-		// printf("\t => %s\n", line);
-		// printf("Avant parse_line\n");
 		ret = ret && parse_line(line, game, &list);
-		// printf("Apres parse_line\n");
-		free (line);
+		free(line);
 	}
-	// printf("Sortie de boucle\n");
-	ret = ret && map_setup(game, list);
-	// printf("Avant lstclear\n");
-	ft_lstclear(&list, &free_list);
-	// printf("Apres lstclear\n");
-	init_texture(game, "textures/brick.xpm"); 
 	close(fd);
-	free(list);
+	ret = ret && map_setup(game, list);
 	return (ret && check_map(game));
 }
 
@@ -89,7 +59,7 @@ static void		init(char *file_name, int save)
 	init_player(&game.player);
 	init_map(&game.map, file_name);
 	game.save = save;
-	//no leaks
+	game.is_map = FALSE;
 	if (load_file(&game, file_name))
 		contine(&game);
 	else

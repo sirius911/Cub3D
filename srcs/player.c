@@ -12,12 +12,11 @@
 
 #include "../includes/cub3d.h"
 
-void		init_player(t_player *player)
+void				init_player(t_player *player)
 {
 	printf("Init player ...");
 	player->coord.x = -1;
 	player->coord.y = -1;
-	//player->radius = 2;
 	player->turn_dir = 0;
 	player->walk_dir = 0;
 	player->trans_dir = 0;
@@ -33,11 +32,11 @@ static int			valid_pos_player(t_game *game, int x, int y, char dir)
 	{
 		game->player.coord.x = (x * game->win.t_size) + (game->win.t_size / 2);
 		game->player.coord.y = (y * game->win.t_size) + (game->win.t_size / 2);
-		if(dir == 'E')
+		if (dir == 'E')
 			game->player.rot_angle = 0;
-		else if(dir == 'S')
+		else if (dir == 'S')
 			game->player.rot_angle = M_PI / 2;
-		else if(dir == 'W')
+		else if (dir == 'W')
 			game->player.rot_angle = M_PI;
 		else
 			game->player.rot_angle = 1.5 * M_PI;
@@ -50,7 +49,7 @@ static int			valid_pos_player(t_game *game, int x, int y, char dir)
 	}
 }
 
-int			check_player_pos(t_game *game)
+int					check_player_pos(t_game *game)
 {
 	unsigned int	x;
 	unsigned int	y;
@@ -77,27 +76,25 @@ int			check_player_pos(t_game *game)
 	return (ret);
 }
 
-void		update_player(t_game *game)
+void				update_player(t_game *game)
 {
 	float			move_step;
-	float			angle_trans;
-	t_point			new_pos;
+	float			ang;
+	t_point			new;
 
 	game->player.rot_angle += game->player.turn_dir * game->player.rot_speed;
 	if (game->player.trans_dir != 0)
 	{
-		angle_trans = game->player.rot_angle +((M_PI / 2) * game->player.trans_dir);
-		new_pos.x = game->player.coord.x + cos(angle_trans) * game->player.move_speed;
-		new_pos.y = game->player.coord.y + sin(angle_trans) * game->player.move_speed;
+		ang = game->player.rot_angle + ((M_PI / 2) * game->player.trans_dir);
+		new.x = game->player.coord.x + cos(ang) * game->player.move_speed;
+		new.y = game->player.coord.y + sin(ang) * game->player.move_speed;
 	}
 	else
 	{
 		move_step = game->player.walk_dir * game->player.move_speed;
-		new_pos.x = game->player.coord.x + cos(game->player.rot_angle) * move_step;
-		new_pos.y = game->player.coord.y + sin(game->player.rot_angle) * move_step;
+		new.x = game->player.coord.x + cos(game->player.rot_angle) * move_step;
+		new.y = game->player.coord.y + sin(game->player.rot_angle) * move_step;
 	}
-	if (!is_wall_at(game, new_pos))
-	{
-		game->player.coord = new_pos;
-	}
+	if (!is_wall_at(game, new))
+		game->player.coord = new;
 }

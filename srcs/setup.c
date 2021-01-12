@@ -12,18 +12,10 @@
 
 #include "../includes/cub3d.h"
 
-// static int		mlx_get_screen_size(void *mlx_ptr, int *sizex, int *sizey)
-// {
-// 	(void)mlx_ptr;
-// 	*sizex = 1920;
-// 	*sizey = 1080;
-// 	return (0);
-// }
-
 static int		valid_mlx(t_game *game)
 {
-	int		resol_x;
-	int		resol_y;
+	int			resol_x;
+	int			resol_y;
 
 	if (!game->save)
 	{
@@ -37,7 +29,6 @@ static int		valid_mlx(t_game *game)
 		game->win.win_ptr = mlx_new_window(game->win.mlx_ptr,
 		game->win.width, game->win.height, game->map.name);
 		creat_images(&game->win);
-		//game->win.image = creat_images(&game->win.mlx_ptr, game->win.width, game->win.height);
 		game->win.num_rays = game->win.width / WALL_STRIP_WIDTH;
 		return (TRUE);
 	}
@@ -46,8 +37,8 @@ static int		valid_mlx(t_game *game)
 
 int				setup_resol(t_game *game, char **tab)
 {
-	int		resol_x;
-	int		resol_y;
+	int			resol_x;
+	int			resol_y;
 
 	if (tab[1] && tab[2] && is_number(tab[1]) && is_number(tab[2]))
 	{
@@ -55,8 +46,7 @@ int				setup_resol(t_game *game, char **tab)
 		resol_y = ft_atoi(tab[2]);
 		if (resol_x > 0 && resol_y > 0)
 		{
-			if (game->win.width == 0
-				&& game->win.height == 0)
+			if (game->win.width == 0 && game->win.height == 0)
 			{
 				game->win.width = resol_x;
 				game->win.height = resol_y;

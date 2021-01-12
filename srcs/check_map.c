@@ -70,6 +70,7 @@ static int		check_space(t_map *map)
 
 int				check_map(t_game *game)
 {
+	printf("check map...\n");
 	if (!check_player_pos(game))
 		return (FALSE);
 	if (!check_border_lr(&game->map) || !check_border_td(&game->map) ||
@@ -79,4 +80,11 @@ int				check_map(t_game *game)
 		return (FALSE);
 	}
 	return (TRUE);
+}
+
+int				free_map_setup(t_list *list, int result)
+{
+	ft_lstclear(&list, &free_list);
+	free(list);
+	return (result);
 }

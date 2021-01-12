@@ -12,59 +12,50 @@
 
 #include "../includes/cub3d.h"
 
-void		init_texture(t_game *game, char *file)
+int			init_texture(t_game *game, char *file, int nb)
 {
-	int			x;
-	int			y;
-	int			img_width;
-	int			img_height;
-	void		*img;
+	int				fd;
 
-	printf("Init texture ...\n");
-
-game->texture.data = (int *)malloc(sizeof(int) * 64 * 64);
-	if (game->texture.data)
+	fd = open(file, O_RDONLY);
+	if (fd == -1)
 	{
-		printf("creation texture a l'addr = %p;\n", game->texture.data);
-		x = 0;
-		while(x < 64)
-		{
-			y = 0;
-			while(y < 64)
-			{
-				game->texture.data[(64 * y) + x] = (unsigned int)(x % 8 && y % 8) ? BLUE : BLACK;
-				y++;
-			}
-			x++;
-		}
+		ft_putstr_fd("Error\nCouldn't open file texture :(", 2);
+		ft_putstr_fd(file, 2);
+		ft_putstr_fd(")\n", 2);
+		return (FALSE);
 	}
-
-	img = mlx_xpm_file_to_image(game->win.mlx_ptr,
-	file, &img_width, &img_height);
-	if (img)
+	close(fd);
+	game->tex[nb].tex_ptr = mlx_xpm_file_to_image(game->win.mlx_ptr,
+	file, &game->tex[nb].width, &game->tex[nb].height);
+	if (game->tex[nb].tex_ptr)
 	{
-		printf("chargement texture a l'addr = %p;\n", game->texture.addr);
-		
-		mlx_get_data_addr(img, &game->texture.bits_per_pixel,
-		&game->texture.line_length, &game->texture.endian);
-		game->texture.addr = img;
-		game->texture.width = img_width;
-		game->texture.height = img_height;
-		printf("taille = (%d, %d)\n", img_width, img_height);
-		printf("bits_per_pixel = %d\n", game->texture.bits_per_pixel);
-		printf("line_length = %d\n", game->texture.line_length);
-		printf("endian = %d\n", game->texture.endian);
+		game->tex[nb].data = mlx_get_data_addr(game->tex[nb].tex_ptr,
+			&game->tex[nb].bits_per_pixel,
+		&game->tex[nb].line_length, &game->tex[nb].endian);
+		return (TRUE);
 	}
 	else
-		ft_putstr("Error\nBad texture file\n");
-	printf("sizoef(int) = %lu", sizeof(int*));
-	
+		ft_putstr_fd("Error\nBad texture file\n", 2);
+	return (FALSE);
+}
+
+int			parse_texture(t_game *game, char **tab)
+{
+	printf("%s -> %s\n", tab[0], tab[1]);
+	if (ft_strequ(*tab, "NO"))
+		return (init_texture(game, tab[1], NORTH));
+	else if (ft_strequ(*tab, "SO"))
+		return (init_texture(game, tab[1], SOUTH));
+	else if (ft_strequ(*tab, "WE"))
+		return (init_texture(game, tab[1], WEST));
+	else if (ft_strequ(*tab, "EA"))
+		return (init_texture(game, tab[1], EAST));
+	else if (ft_strequ(*tab, "S"))
+		return (init_texture(game, tab[1], SPRITE));
+	return (FALSE);
 }
 
 void		free_texture(t_win *win, t_texture *texture)
 {
-	//free(texture->file);
-	free(texture->data);
-	mlx_destroy_image(win->mlx_ptr, texture->addr);
-	texture->addr = NULL;
+	mlx_destroy_image(win->mlx_ptr, texture->tex_ptr);
 }

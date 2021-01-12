@@ -17,6 +17,16 @@ static int		valid_color(int color)
 	return (color >= 0 && color <= 255);
 }
 
+static int		is_texture(char **tab_line)
+{
+	if (ft_strequ(*tab_line, "NO") || ft_strequ(*tab_line, "SO")
+		|| ft_strequ(*tab_line, "WE") || ft_strequ(*tab_line, "EA")
+		|| ft_strequ(*tab_line, "S"))
+		return (TRUE);
+	else
+		return (FALSE);
+}
+
 int				parse_color(char *str)
 {
 	char		**rgb;
@@ -53,31 +63,21 @@ int				parse_line(char *line, t_game *game, t_list **list)
 
 	ret = TRUE;
 	tab_line = ft_split(line, ' ');
-	debut = tab_line;
-	while (*tab_line)
+	if (!*tab_line || !tab_line[0])
 	{
-		if (*tab_line[0] == 'R')
-		{
-			ret = ret && setup_resol(game, tab_line);
-			// tab_line += 2;
-			break;
-		}
-		else if (ft_strequ(*tab_line, "NO") || ft_strequ(*tab_line, "SO")
-			|| ft_strequ(*tab_line, "WE") || ft_strequ(*tab_line, "EA")
-			|| ft_strequ(*tab_line, "S"))
-		{
-			ft_putstr_fd("Texture \n", 1);
-			tab_line++;
-		}
-		else if (ft_strequ(*tab_line, "F") || ft_strequ(*tab_line, "C"))
-			ret = ret && setup_color(game, tab_line++);
-		else if (*tab_line[0] == '1')
-		{
-			ft_lstadd_back(list, ft_lstnew(ft_strdup(line)));
-			break ;
-		}
-		tab_line++;
+		free_tab(tab_line);
+		free(tab_line);
+		return (TRUE);
 	}
+	debut = tab_line;
+	if (*tab_line && *tab_line[0] == 'R')
+		ret = setup_resol(game, tab_line);
+	else if (is_texture(tab_line))
+		ret = parse_texture(game, tab_line);
+	else if (ft_strequ(*tab_line, "F") || ft_strequ(*tab_line, "C"))
+		ret = setup_color(game, tab_line++);
+	else if (*tab_line[0] == '1')
+		ft_lstadd_back(list, ft_lstnew(ft_strdup(line)));
 	free_tab(debut);
 	free(debut);
 	return (ret);

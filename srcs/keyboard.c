@@ -31,12 +31,10 @@ int			deal_key(int key, t_game *game)
 		game->player.trans_dir = -1;
 	else if (key == KEY_D)
 		game->player.trans_dir = 1;
+	else if (key == KEY_M)
+		game->is_map = !game->is_map;
 	else
-	{
-		ft_putstr("key = ");
-		ft_putnbr(key);
-		ft_putchar('\n');
-	}
+		printf("key = %d\n", key);
 	update_player(game);
 	render(game);
 	return (0);

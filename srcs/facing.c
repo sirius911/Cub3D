@@ -1,38 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   window.c                                           :+:      :+:    :+:   */
+/*   facing.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/24 11:40:40 by clorin            #+#    #+#             */
-/*   Updated: 2020/12/24 11:41:08 by clorin           ###   ########.fr       */
+/*   Created: 2021/01/12 16:01:16 by clorin            #+#    #+#             */
+/*   Updated: 2021/01/12 16:01:22 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void		init_win(t_win *win)
+int				is_ray_facing_down(float angle)
 {
-	printf("init win ...");
-	win->mlx_ptr = NULL;
-	win->win_ptr = NULL;
-	win->width = 0;
-	win->height = 0;
-	win->c_color = 0;
-	win->f_color = 0;
-	win->t_size = 0;
-	printf("ok\n");
+	return (angle > 0 && angle < M_PI);
 }
 
-void		free_win(t_win *win)
+int				is_ray_facing_up(float angle)
 {
-	if (win->mlx_ptr && win->win_ptr)
-	{
-		if (win->image.img)
-			free_image(win);
-		mlx_destroy_window(win->mlx_ptr, win->win_ptr);
-	}
-	free(win->mlx_ptr);
-	win->mlx_ptr = NULL;
+	return (!is_ray_facing_down(angle));
+}
+
+int				is_ray_facing_right(float angle)
+{
+	return (angle < 0.5 * M_PI || angle > 1.5 * M_PI);
+}
+
+int				is_ray_facing_left(float angle)
+{
+	return (!is_ray_facing_right(angle));
 }

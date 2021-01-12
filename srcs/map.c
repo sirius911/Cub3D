@@ -14,8 +14,8 @@
 
 static int	nb_col(t_list *list)
 {
-	int		len;
-	int		max_len;
+	int					len;
+	int					max_len;
 
 	max_len = 0;
 	while (list)
@@ -38,13 +38,13 @@ void		init_map(t_map *map, char *file_name)
 	printf("ok\n");
 }
 
-void	free_map(t_map *map)
+void		free_map(t_map *map)
 {
 	unsigned int		i;
 
 	ft_putstr("erase map ...");
 	i = 0;
-	while(i < map->num_rows)
+	while (i < map->num_rows)
 	{
 		free(map->tab[i]);
 		i++;
@@ -56,9 +56,9 @@ void	free_map(t_map *map)
 	ft_putstr("ok\n");
 }
 
-static int			fill_tab(t_game *game, t_list *list)
+static int	fill_tab(t_game *game, t_list *list)
 {
-	int		i;
+	int					i;
 
 	i = 0;
 	while (list)
@@ -66,7 +66,8 @@ static int			fill_tab(t_game *game, t_list *list)
 		game->map.tab[i] = ft_strnew(game->map.num_cols);
 		ft_memset(game->map.tab[i], ' ', game->map.num_cols);
 		if (game->map.tab[i])
-			ft_memcpy(game->map.tab[i], list->content, ft_strlen(list->content));
+			ft_memcpy(game->map.tab[i], list->content,
+				ft_strlen(list->content));
 		else
 		{
 			ft_putstr_fd("Error\nMalloc fail (map table)\n", 2);
@@ -80,29 +81,27 @@ static int			fill_tab(t_game *game, t_list *list)
 
 int			map_setup(t_game *game, t_list *list)
 {
-	int		max_col;
-	int		max_line;
+	int					max_col;
+	int					max_line;
 
 	max_col = nb_col(list);
 	max_line = ft_lstsize(list);
 	if (max_col == 0 || max_line == 0)
 	{
 		ft_putstr_fd("Error\nBad format in the map section\n", 2);
-		return (FALSE);
+		return (free_map_setup(list, FALSE));
 	}
 	game->map.num_rows = max_line;
 	game->map.num_cols = max_col;
 	game->win.t_size = game->win.width / game->map.num_cols;
-	//game->win.t_size = 64;
 	if ((game->win.height / game->map.num_rows) < game->win.t_size)
 		game->win.t_size = game->win.height / game->map.num_rows;
-	game->map.tab = (char **) malloc(sizeof(char *) * max_line);
+	game->map.tab = (char **)malloc(sizeof(char *) * max_line);
 	if (game->map.tab)
-		return (fill_tab(game, list));
+		return (free_map_setup(list, fill_tab(game, list)));
 	else
 	{
 		ft_putstr_fd("Error\nMalloc fail (map table)\n", 2);
-		return (FALSE);
+		return (free_map_setup(list, FALSE));
 	}
-	return (TRUE);
 }

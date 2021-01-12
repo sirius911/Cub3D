@@ -57,20 +57,3 @@ void			free_list(void *data)
 	free(data);
 	data = NULL;
 }
-
-float			normalize_angle(float angle)
-{
-	while (angle >= 2 * M_PI)
-		 	angle -= (2 * M_PI);
-	while (angle < 0)
-			angle += 2 * M_PI;
-	return (angle);
-}
-
-float			distance(t_point a, t_point b)
-{
-	if (a.x >= 0 && b.x >= 0)
-		return (sqrt((b.x - a.x) * (b.x - a.x) + (b.y - a.y) * (b.y - a.y)));
-	else
-		return (FLT_MAX);
-}
