@@ -165,6 +165,7 @@ void			cube(t_win *win, t_point point, int size, int color);
 void			draw_lines(t_win *win, t_point a, t_point b, int color);
 void			update_player(t_game *game);
 int				is_wall_at(t_game *game, t_point pos);
+int				is_sprite_at(t_game *game, t_point pos);
 char			type_wall(t_game *game, t_point pos);
 float			normalize_angle(float angle);
 float			distance(t_point a, t_point b);

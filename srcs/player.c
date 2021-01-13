@@ -95,6 +95,6 @@ void				update_player(t_game *game)
 		new.x = game->player.coord.x + cos(game->player.rot_angle) * move_step;
 		new.y = game->player.coord.y + sin(game->player.rot_angle) * move_step;
 	}
-	if (!is_wall_at(game, new))
+	if (!is_wall_at(game, new) && !is_sprite_at(game, new))
 		game->player.coord = new;
 }

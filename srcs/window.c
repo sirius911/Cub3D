@@ -6,7 +6,7 @@
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 11:40:40 by clorin            #+#    #+#             */
-/*   Updated: 2020/12/24 11:41:08 by clorin           ###   ########.fr       */
+/*   Updated: 2021/01/13 10:44:10 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void		free_win(t_win *win)
 			free_image(win);
 		mlx_destroy_window(win->mlx_ptr, win->win_ptr);
 	}
+	mlx_destroy_display(win->mlx_ptr);
 	free(win->mlx_ptr);
 	win->mlx_ptr = NULL;
 }
