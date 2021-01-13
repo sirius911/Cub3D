@@ -6,7 +6,7 @@
 #    By: clorin <clorin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/14 09:43:04 by clorin            #+#    #+#              #
-#    Updated: 2021/01/06 15:26:33 by clorin           ###   ########.fr        #
+#    Updated: 2021/01/13 11:59:33 by clorin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ clean:
 	rm -rf $(OBJ)
 
 fclean: clean
+	@make fclean -C libft/
 	rm -rf $(NAME)
 	rm -rf libft/libft.a
 
