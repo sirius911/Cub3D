@@ -12,6 +12,13 @@
 
 #include "../includes/cub3d.h"
 
+void		init_game(t_game *game, int save)
+{
+	game->save = save;
+	game->is_minimap = FALSE;
+	game->nb_sprite = 0;
+}
+
 void		game_close(t_game *game)
 {
 	free_texture(&game->win, game->tex);

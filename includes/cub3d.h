@@ -137,13 +137,14 @@ typedef struct	s_game
 	int				save;
 	t_texture		tex[5];
 	int				nb_sprite;
-	int				is_map;
+	int				is_minimap;
 }				t_game;
 
 void			init_map(t_map *map, char *file_name);
 void			init_player(t_player *player);
 void			init_image(t_image *image);
 void			init_win(t_win *win);
+void			init_game(t_game *game, int save);
 void			free_tab(char **tab);
 void			free_rays(t_ray **tab, int len);
 int				is_number(char *str);
@@ -159,6 +160,7 @@ void			game_close(t_game *game);
 void			free_win(t_win *win);
 void			free_image(t_win *win);
 int				check_map(t_game *game);
+int				check_sprites(t_game *game);
 int				free_map_setup(t_list *list, int result);
 int				check_player_pos(t_game *game);
 void			creat_images(t_win *win);

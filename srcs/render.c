@@ -73,7 +73,7 @@ void				render(t_game *game)
 
 	tab_rays = cast_all_rays(game);
 	gen_3d(game, tab_rays);
-	if (game->is_map)
+	if (game->is_minimap)
 	{
 		render_map(game);
 		render_ray_map(game, tab_rays);
