@@ -110,6 +110,11 @@ typedef struct	s_texture
 	int				endian;
 }				t_texture;
 
+typedef struct 	s_sprite
+{
+	
+}				t_sprite;
+
 typedef struct	s_win
 {
 	void			*mlx_ptr;
@@ -130,8 +135,8 @@ typedef struct	s_game
 	t_map			map;
 	t_player		player;
 	int				save;
-	t_texture		texture;
 	t_texture		tex[5];
+	int				nb_sprite;
 	int				is_map;
 }				t_game;
 
@@ -181,7 +186,7 @@ void			rect(t_win *win, t_point a, t_point coord, int color);
 void			clear_image(t_win *win);
 void			ft_mlx_pixel_put(t_win *win, int x, int y, int color);
 int				init_texture(t_game *game, char *file, int nb);
-void			free_texture(t_win *win, t_texture *texture);
+void			free_texture(t_win *win, t_texture texture[5]);
 int				parse_texture(t_game *game, char **tab);
 void			right_trim(char *str);
 /*

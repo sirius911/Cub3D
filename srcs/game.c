@@ -14,10 +14,7 @@
 
 void		game_close(t_game *game)
 {
-	free_texture(&game->win, &game->tex[0]);
-	free_texture(&game->win, &game->tex[1]);
-	free_texture(&game->win, &game->tex[2]);
-	free_texture(&game->win, &game->tex[3]);
+	free_texture(&game->win, game->tex);
 	free_map(&game->map);
 	free_win(&game->win);
 }

@@ -50,7 +50,6 @@ void		free_map(t_map *map)
 {
 	unsigned int		i;
 
-	ft_putstr("erase map ...");
 	i = 0;
 	while (i < map->num_rows)
 	{
@@ -61,7 +60,6 @@ void		free_map(t_map *map)
 	free(map->name);
 	map->tab = NULL;
 	map->name = NULL;
-	ft_putstr("ok\n");
 }
 
 static int	fill_tab(t_game *game, t_list *list)

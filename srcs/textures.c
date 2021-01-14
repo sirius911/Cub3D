@@ -55,7 +55,11 @@ int			parse_texture(t_game *game, char **tab)
 	return (FALSE);
 }
 
-void		free_texture(t_win *win, t_texture *texture)
+void		free_texture(t_win *win, t_texture texture[5])
 {
-	mlx_destroy_image(win->mlx_ptr, texture->tex_ptr);
+	int				i;
+
+	i = 0;
+	while (i < 5)
+		mlx_destroy_image(win->mlx_ptr, texture[i++].tex_ptr);
 }
