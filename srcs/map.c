@@ -95,7 +95,7 @@ int			map_setup(t_game *game, t_list *list)
 	if (max_col == 0 || max_line == 0)
 	{
 		ft_putstr_fd("Error\nBad format in the map section\n", 2);
-		return (free_map_setup(list, FALSE));
+		return (FALSE);
 	}
 	game->map.num_rows = max_line;
 	game->map.num_cols = max_col;
@@ -104,10 +104,10 @@ int			map_setup(t_game *game, t_list *list)
 		game->win.t_size = game->win.height / game->map.num_rows;
 	game->map.tab = (char **)malloc(sizeof(char *) * max_line);
 	if (game->map.tab)
-		return (free_map_setup(list, fill_tab(game, list)));
+		return (fill_tab(game, list));
 	else
 	{
 		ft_putstr_fd("Error\nMalloc fail (map table)\n", 2);
-		return (free_map_setup(list, FALSE));
+		return (FALSE);
 	}
 }

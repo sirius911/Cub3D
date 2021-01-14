@@ -12,7 +12,7 @@
 
 #include "../includes/cub3d.h"
 
-static void		free_list(void *data)
+void			free_list(void *data)
 {
 	free(data);
 	data = NULL;
@@ -47,9 +47,9 @@ void			free_tab(char **tab)
 	}
 }
 
-int				free_map_setup(t_list *list, int result)
+/*int				free_map_setup(t_list *list, int result)
 {
 	ft_lstclear(&list, &free_list);
-	free(list);
+	//free(list);
 	return (result);
-}
+}*/

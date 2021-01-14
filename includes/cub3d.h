@@ -23,7 +23,6 @@
 # define FALSE 0
 # define TRUE 1
 # define FOV_ANGLE 1.04719755
-# define WALL_STRIP_WIDTH 1
 # define KEY_A 97
 # define KEY_W 119
 # define KEY_S 115
@@ -112,7 +111,8 @@ typedef struct	s_texture
 
 typedef struct 	s_sprite
 {
-	
+	int				x;
+	int				y;
 }				t_sprite;
 
 typedef struct	s_win
@@ -134,19 +134,25 @@ typedef struct	s_game
 	t_win			win;
 	t_map			map;
 	t_player		player;
-	int				save;
 	t_texture		tex[5];
+	t_sprite		*tab_sprite;
 	int				nb_sprite;
 	int				is_minimap;
+	int				in_map;
+	int				save;
 }				t_game;
 
 void			init_map(t_map *map, char *file_name);
 void			init_player(t_player *player);
 void			init_image(t_image *image);
 void			init_win(t_win *win);
+void			init_texture(t_game *game);
 void			init_game(t_game *game, int save);
+int				valid_game(t_game *game, t_list *list, int ret);
 void			free_tab(char **tab);
+void			free_sprite(t_game *game);
 void			free_rays(t_ray **tab, int len);
+void			free_list(void *data);
 int				is_number(char *str);
 int				setup_resol(t_game *game, char **tab);
 int				setup_color(t_game *game, char **tab);
@@ -186,7 +192,7 @@ int				find_color(int wall);
 void			rect(t_win *win, t_point a, t_point coord, int color);
 void			clear_image(t_win *win);
 void			ft_mlx_pixel_put(t_win *win, int x, int y, int color);
-int				init_texture(t_game *game, char *file, int nb);
+int				load_texture(t_game *game, char *file, int nb);
 void			free_texture(t_win *win, t_texture texture[5]);
 int				parse_texture(t_game *game, char **tab);
 void			right_trim(char *str);
@@ -200,5 +206,6 @@ void			fact_vect(t_point *point, float fact);
 void			cpy_point(t_point *dst, t_point *src);
 void			add_val_point(t_point *point, float val);
 void			ft_print_list(t_list *list);
+/*void		list_texture(t_texture texture[5]);*/
 
 #endif

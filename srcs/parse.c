@@ -54,31 +54,45 @@ int				parse_color(char *str)
 	free(rgb);
 	return (color);
 }
+static int		record_list_map(t_game *game, t_list **list, char *line)
+{
+	game->in_map = TRUE;
+	if (line[0] != '\0')
+	{
+		ft_lstadd_back(list, ft_lstnew(ft_strdup(line)));
+		return (TRUE);
+	}
+	else
+	{
+		ft_putstr_fd("Error\nEmpty line in map.\n", 2);
+		return (FALSE);
+	}
+}
 
 int				parse_line(char *line, t_game *game, t_list **list)
 {
 	char		**tab_line;
-	char		**debut;
 	int			ret;
 
 	ret = TRUE;
 	tab_line = ft_split(line, ' ');
-	if (!*tab_line || !tab_line[0])
+	if (*tab_line && *tab_line[0] == 'R')
+		ret = setup_resol(game, tab_line);
+	else if (*tab_line && is_texture(tab_line))
+		ret = parse_texture(game, tab_line);
+	else if (*tab_line && (ft_strequ(*tab_line, "F") || ft_strequ(*tab_line, "C")))
+		ret = setup_color(game, tab_line);
+	else if (*tab_line && *tab_line[0] == '1')
+		ret = record_list_map(game, list, line);
+	else if (!*tab_line && game->in_map)
+	{
+		ft_putstr_fd("Error\nEmpty line in map.\n", 2);
+		return (FALSE);
+	}
+	if (*tab_line)
 	{
 		free_tab(tab_line);
 		free(tab_line);
-		return (TRUE);
 	}
-	debut = tab_line;
-	if (*tab_line && *tab_line[0] == 'R')
-		ret = setup_resol(game, tab_line);
-	else if (is_texture(tab_line))
-		ret = parse_texture(game, tab_line);
-	else if (ft_strequ(*tab_line, "F") || ft_strequ(*tab_line, "C"))
-		ret = setup_color(game, tab_line++);
-	else if (*tab_line[0] == '1')
-		ft_lstadd_back(list, ft_lstnew(ft_strdup(line)));
-	free_tab(debut);
-	free(debut);
 	return (ret);
 }

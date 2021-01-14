@@ -12,16 +12,35 @@
 
 #include "../includes/cub3d.h"
 
-int			init_texture(t_game *game, char *file, int nb)
+void		init_texture(t_game *game)
+{
+	int				i;
+
+	i = 0;
+	while (i < 5)
+	{
+		game->tex[i].tex_ptr = NULL;
+		game->tex[i].data = NULL;
+		game->tex[i].width = 0;
+		game->tex[i].height = 0;
+		game->tex[i].bits_per_pixel = 0;
+		game->tex[i].line_length = 0;
+		game->tex[i].endian = 0;
+		i++;
+	}
+}
+
+int			load_texture(t_game *game, char *file, int nb)
 {
 	int				fd;
 
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 	{
-		ft_putstr_fd("Error\nCouldn't open file texture :(", 2);
+		printf("Error\nCouldn't open file texture :(%s)\n", file);
+/*		ft_putstr_fd("Error\n", 2);
 		ft_putstr_fd(file, 2);
-		ft_putstr_fd(")\n", 2);
+		ft_putstr_fd(")\n", 2);*/
 		return (FALSE);
 	}
 	close(fd);
@@ -41,17 +60,16 @@ int			init_texture(t_game *game, char *file, int nb)
 
 int			parse_texture(t_game *game, char **tab)
 {
-	printf("%s -> %s\n", tab[0], tab[1]);
 	if (ft_strequ(*tab, "NO"))
-		return (init_texture(game, tab[1], NORTH));
+		return (load_texture(game, tab[1], NORTH));
 	else if (ft_strequ(*tab, "SO"))
-		return (init_texture(game, tab[1], SOUTH));
+		return (load_texture(game, tab[1], SOUTH));
 	else if (ft_strequ(*tab, "WE"))
-		return (init_texture(game, tab[1], WEST));
+		return (load_texture(game, tab[1], WEST));
 	else if (ft_strequ(*tab, "EA"))
-		return (init_texture(game, tab[1], EAST));
+		return (load_texture(game, tab[1], EAST));
 	else if (ft_strequ(*tab, "S"))
-		return (init_texture(game, tab[1], SPRITE));
+		return (load_texture(game, tab[1], SPRITE));
 	return (FALSE);
 }
 
@@ -61,5 +79,13 @@ void		free_texture(t_win *win, t_texture texture[5])
 
 	i = 0;
 	while (i < 5)
-		mlx_destroy_image(win->mlx_ptr, texture[i++].tex_ptr);
+	{
+		if (win->mlx_ptr && texture[i].tex_ptr)
+		{
+			mlx_destroy_image(win->mlx_ptr, texture[i].tex_ptr);
+			texture[i].tex_ptr = NULL;
+			texture[i].data = NULL;
+		}
+		i++;
+	}
 }

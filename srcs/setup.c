@@ -29,7 +29,7 @@ static int		valid_mlx(t_game *game)
 		game->win.win_ptr = mlx_new_window(game->win.mlx_ptr,
 		game->win.width, game->win.height, game->map.name);
 		creat_images(&game->win);
-		game->win.num_rays = game->win.width / WALL_STRIP_WIDTH;
+		game->win.num_rays = game->win.width;
 		return (TRUE);
 	}
 	return (FALSE);

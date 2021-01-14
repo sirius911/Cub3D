@@ -16,7 +16,7 @@ static void		contine(t_game *game)
 {
 	printf("screen size : width = %d\theight = %d\n", game->win.width, game->win.height);
 	printf("position x =%f\ty=%f rot = %f\n", game->player.coord.x, game->player.coord.y, game->player.rot_angle);
-	printf("TILE_SIZE = %d\n", game->win.t_size);
+	printf("nb sprites = %d\n", game->nb_sprite);
 	mlx_hook(game->win.win_ptr, 2, 1L << 0, deal_key, game);
 	mlx_hook(game->win.win_ptr, 3, 1L << 1, release_key, game);
 	render(game);
@@ -47,8 +47,7 @@ static int		load_file(t_game *game, char *file_name)
 		free(line);
 	}
 	close(fd);
-	ret = ret && map_setup(game, list);
-	return (ret && check_map(game));
+	return (valid_game(game, list, ret));
 }
 
 static void		init(char *file_name, int save)
@@ -58,8 +57,8 @@ static void		init(char *file_name, int save)
 	init_win(&game.win);
 	init_player(&game.player);
 	init_map(&game.map, file_name);
-	game.save = save;
-	game.is_map = FALSE;
+	init_game(&game, save);
+	init_texture(&game);
 	if (load_file(&game, file_name))
 		contine(&game);
 	else
