@@ -12,35 +12,6 @@
 
 #include "../includes/cub3d.h"
 
-void			free_tab(char **tab)
-{
-	if (tab)
-	{
-		while (*tab)
-		{
-			free(*tab);
-			tab++;
-		}
-		tab = NULL;
-	}
-}
-
-void			free_rays(t_ray **tab, int len)
-{
-	int		i;
-
-	i = 0;
-	if (tab)
-	{
-		while (i < len)
-		{
-			free(tab[i]);
-			i++;
-		}
-		tab = NULL;
-	}
-}
-
 int				is_number(char *str)
 {
 	while (*str)
@@ -50,12 +21,6 @@ int				is_number(char *str)
 		str++;
 	}
 	return (TRUE);
-}
-
-void			free_list(void *data)
-{
-	free(data);
-	data = NULL;
 }
 
 void			right_trim(char *str)

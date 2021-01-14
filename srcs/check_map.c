@@ -81,10 +81,3 @@ int				check_map(t_game *game)
 	}
 	return (TRUE);
 }
-
-int				free_map_setup(t_list *list, int result)
-{
-	ft_lstclear(&list, &free_list);
-	free(list);
-	return (result);
-}

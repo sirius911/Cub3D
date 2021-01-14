@@ -153,7 +153,6 @@ int				parse_color(char *str);
 int				create_trgb(int t, int r, int g, int b);
 int				parse_line(char *line, t_game *game, t_list **list);
 int				parse_tab(t_game *game, char *line, t_list **list);
-void			free_list(void *data);
 int				map_setup(t_game *game, t_list *list);
 void			free_map(t_map *map);
 void			game_close(t_game *game);
