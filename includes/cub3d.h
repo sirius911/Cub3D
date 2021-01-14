@@ -183,6 +183,7 @@ void			ft_mlx_pixel_put(t_win *win, int x, int y, int color);
 int				init_texture(t_game *game, char *file, int nb);
 void			free_texture(t_win *win, t_texture *texture);
 int				parse_texture(t_game *game, char **tab);
+void			right_trim(char *str);
 /*
 				BONUS
 */

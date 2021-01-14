@@ -20,9 +20,17 @@ static int	nb_col(t_list *list)
 	max_len = 0;
 	while (list)
 	{
+		right_trim(list->content);
 		len = ft_strlen(list->content);
-		if (max_len < len)
-			max_len = len;
+		if (len > 0)
+		{
+			if (max_len < len)
+				max_len = len;
+		}
+		else
+		{
+			return (0);
+		}
 		list = list->next;
 	}
 	return (max_len);

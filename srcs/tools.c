@@ -57,3 +57,15 @@ void			free_list(void *data)
 	free(data);
 	data = NULL;
 }
+
+void			right_trim(char *str)
+{
+	int		i;
+
+	i = ft_strlen(str) - 1;
+	while (i >= 0 && ft_isspace(str[i]))
+	{
+		i--;
+	}
+	str[i + 1] = '\0';
+}
