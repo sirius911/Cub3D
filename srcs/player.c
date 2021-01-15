@@ -14,7 +14,6 @@
 
 void				init_player(t_player *player)
 {
-	printf("Init player ...");
 	player->coord.x = -1;
 	player->coord.y = -1;
 	player->turn_dir = 0;
@@ -23,7 +22,6 @@ void				init_player(t_player *player)
 	player->rot_angle = 0;
 	player->move_speed = 10.0;
 	player->rot_speed = 4 * (M_PI / 180);
-	printf("ok\n");
 }
 
 static int			valid_pos_player(t_game *game, int x, int y, char dir)
@@ -43,10 +41,7 @@ static int			valid_pos_player(t_game *game, int x, int y, char dir)
 		return (TRUE);
 	}
 	else
-	{
-		ft_putstr_fd("Error\nDuplicate player position\n", 2);
-		return (FALSE);
-	}
+		return (msg_err(DUPLICATE_PLAYER,""));
 }
 
 int					check_player_pos(t_game *game)
@@ -72,7 +67,7 @@ int					check_player_pos(t_game *game)
 		y++;
 	}
 	if (game->player.coord.x == -1)
-		ft_putstr_fd("Error\nNo player position\n", 2);
+		return (msg_err(NO_POSITON_PLAYER,""));
 	return (ret);
 }
 

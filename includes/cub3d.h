@@ -19,6 +19,7 @@
 # include <float.h>
 # include "../libft/libft.h"
 # include "mlx.h"
+# include "constants.h"
 
 # define FALSE 0
 # define TRUE 1
@@ -102,6 +103,7 @@ typedef struct	s_texture
 {
 	void			*tex_ptr;
 	char			*data;
+	char			*file;
 	int				width;
 	int				height;
 	int				bits_per_pixel;
@@ -142,19 +144,22 @@ typedef struct	s_game
 	int				save;
 }				t_game;
 
-void			init_map(t_map *map, char *file_name);
+int				msg_err(char *str, char *line);
+void			init_map(t_map *map);
 void			init_player(t_player *player);
 void			init_image(t_image *image);
 void			init_win(t_win *win);
 void			init_texture(t_game *game);
 void			init_game(t_game *game, int save);
 int				valid_game(t_game *game, t_list *list, int ret);
+int				valid_resol(t_game *game);
+void			run_game(t_game *game);
 void			free_tab(char **tab);
 void			free_sprite(t_game *game);
 void			free_rays(t_ray **tab, int len);
 void			free_list(void *data);
 int				is_number(char *str);
-int				setup_resol(t_game *game, char **tab);
+//int				setup_resol(t_game *game, char **tab);
 int				setup_color(t_game *game, char **tab);
 int				parse_color(char *str);
 int				create_trgb(int t, int r, int g, int b);
@@ -192,7 +197,7 @@ int				find_color(int wall);
 void			rect(t_win *win, t_point a, t_point coord, int color);
 void			clear_image(t_win *win);
 void			ft_mlx_pixel_put(t_win *win, int x, int y, int color);
-int				load_texture(t_game *game, char *file, int nb);
+int				load_textures(t_game *game);
 void			free_texture(t_win *win, t_texture texture[5]);
 int				parse_texture(t_game *game, char **tab);
 void			right_trim(char *str);

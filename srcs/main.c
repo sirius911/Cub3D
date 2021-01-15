@@ -12,17 +12,6 @@
 
 #include "../includes/cub3d.h"
 
-static void		contine(t_game *game)
-{
-	printf("screen size : width = %d\theight = %d\n", game->win.width, game->win.height);
-	printf("position x =%f\ty=%f rot = %f\n", game->player.coord.x, game->player.coord.y, game->player.rot_angle);
-	printf("nb sprites = %d\n", game->nb_sprite);
-	mlx_hook(game->win.win_ptr, 2, 1L << 0, deal_key, game);
-	mlx_hook(game->win.win_ptr, 3, 1L << 1, release_key, game);
-	render(game);
-	mlx_loop(game->win.mlx_ptr);
-}
-
 static int		load_file(t_game *game, char *file_name)
 {
 	int			fd;
@@ -37,7 +26,7 @@ static int		load_file(t_game *game, char *file_name)
 	fd = open(file_name, O_RDONLY);
 	if (fd == -1)
 	{
-		ft_putstr_fd("Error\nCouldn't open file (FD)\n", 2);
+		msg_err(FAIL_OPEN, file_name);
 		return (FALSE);
 	}
 	while (ret && nb_oct > 0)
@@ -54,13 +43,9 @@ static void		init(char *file_name, int save)
 {
 	t_game		game;
 
-	init_win(&game.win);
-	init_player(&game.player);
-	init_map(&game.map, file_name);
 	init_game(&game, save);
-	init_texture(&game);
 	if (load_file(&game, file_name))
-		contine(&game);
+		run_game(&game);
 	else
 		game_close(&game);
 }
@@ -85,9 +70,12 @@ int				main(int argc, char **argv)
 	{
 		init(argv[1], TRUE);
 	}
-	else if (argc == 2 && is_valid_file(argv[1]))
+	else if (argc == 2)
 	{
-		init(argv[1], FALSE);
+		if (is_valid_file(argv[1]))
+			init(argv[1], FALSE);
+		else
+			ft_putstr_fd("Error\nMap not a .cub\n", 2);
 	}
 	else
 	{

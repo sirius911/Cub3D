@@ -36,14 +36,12 @@ static int	nb_col(t_list *list)
 	return (max_len);
 }
 
-void		init_map(t_map *map, char *file_name)
+void		init_map(t_map *map)
 {
-	printf("Init map ...");
-	map->name = ft_strdup(file_name);
+	map->name = NULL;
 	map->tab = NULL;
 	map->num_rows = 0;
 	map->num_cols = 0;
-	printf("ok\n");
 }
 
 void		free_map(t_map *map)

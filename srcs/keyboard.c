@@ -33,6 +33,7 @@ int			deal_key(int key, t_game *game)
 		game->player.trans_dir = 1;
 	else if (key == KEY_M)
 		game->is_minimap = !game->is_minimap;
+	else
 		printf("key = %d\n", key);
 	update_player(game);
 	render(game);

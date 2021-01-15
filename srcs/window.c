@@ -14,15 +14,15 @@
 
 void		init_win(t_win *win)
 {
-	printf("init win ...");
 	win->mlx_ptr = NULL;
 	win->win_ptr = NULL;
 	win->width = 0;
 	win->height = 0;
-	win->c_color = 0;
-	win->f_color = 0;
+	win->num_rays = 0;
+	win->c_color = -1;
+	win->f_color = -1;
 	win->t_size = 0;
-	printf("ok\n");
+	init_image(&win->image);
 }
 
 void		free_win(t_win *win)
@@ -32,8 +32,8 @@ void		free_win(t_win *win)
 		if (win->image.img)
 			free_image(win);
 		mlx_destroy_window(win->mlx_ptr, win->win_ptr);
+		mlx_destroy_display(win->mlx_ptr);
+		free(win->mlx_ptr);
 	}
-	mlx_destroy_display(win->mlx_ptr);
-	free(win->mlx_ptr);
 	win->mlx_ptr = NULL;
 }

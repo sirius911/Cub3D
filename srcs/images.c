@@ -19,6 +19,8 @@ void		init_image(t_image *image)
 	image->bits_per_pixel = 0;
 	image->line_length = 0;
 	image->endian = 0;
+	image->width = 0;
+	image->height = 0;
 }
 
 void		creat_images(t_win *win)

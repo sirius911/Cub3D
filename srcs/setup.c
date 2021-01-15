@@ -12,7 +12,7 @@
 
 #include "../includes/cub3d.h"
 
-static int		valid_mlx(t_game *game)
+int		valid_resol(t_game *game)
 {
 	int			resol_x;
 	int			resol_y;
@@ -20,47 +20,20 @@ static int		valid_mlx(t_game *game)
 	if (!game->save)
 	{
 		game->win.mlx_ptr = mlx_init();
+		if (!game->win.mlx_ptr)
+		{
+			ft_putstr_fd("Error\nmlx_init() fail.\n", 2);
+			return (FALSE);
+		}
 		mlx_get_screen_size(game->win.mlx_ptr, &resol_x, &resol_y);
 		printf("screen_size = (%d,%d)\n", resol_x, resol_y);
 		if (game->win.width > resol_x)
 			game->win.width = resol_x;
 		if (game->win.height > resol_y)
 			game->win.height = resol_y;
-		game->win.win_ptr = mlx_new_window(game->win.mlx_ptr,
-		game->win.width, game->win.height, game->map.name);
-		creat_images(&game->win);
 		game->win.num_rays = game->win.width;
-		return (TRUE);
 	}
-	return (FALSE);
-}
-
-int				setup_resol(t_game *game, char **tab)
-{
-	int			resol_x;
-	int			resol_y;
-
-	if (tab[1] && tab[2] && is_number(tab[1]) && is_number(tab[2]))
-	{
-		resol_x = ft_atoi(tab[1]);
-		resol_y = ft_atoi(tab[2]);
-		if (resol_x > 0 && resol_y > 0)
-		{
-			if (game->win.width == 0 && game->win.height == 0)
-			{
-				game->win.width = resol_x;
-				game->win.height = resol_y;
-				return (valid_mlx(game));
-			}
-			else
-				ft_putstr_fd("Error\nResolution specified twice\n", 2);
-		}
-		else
-			ft_putstr_fd("Error\nBad resolution\n", 2);
-	}
-	else
-		ft_putstr_fd("Error\nCouldn't parse resolution\n", 2);
-	return (FALSE);
+	return (TRUE);
 }
 
 int				setup_color(t_game *game, char **tab)

@@ -12,6 +12,31 @@
 
 #include "../includes/cub3d.h"
 
+static int		check_elem(t_map *map)
+{
+	unsigned int		i;
+	unsigned int		j;
+	char				c;
+
+	i = 0;
+	while (i < map->num_rows)
+	{
+		j = 1;
+		while (j < map->num_cols)
+		{
+			c = map->tab[i][j];
+			if (c != '0' && c!= '1' && c!= '2' && c!= ' ')
+			{
+				printf("c = %c\n", c);
+				return (FALSE);
+			}
+			j++;
+		}
+		i++;
+	}
+	return (TRUE);
+}
+
 static int		check_border_lr(t_map *map)
 {
 	unsigned int		i;
@@ -25,6 +50,7 @@ static int		check_border_lr(t_map *map)
 			return (FALSE);
 		i++;
 	}
+	printf("ok_lr\n");
 	return (TRUE);
 }
 
@@ -41,6 +67,7 @@ static int		check_border_td(t_map *map)
 			return (FALSE);
 		j++;
 	}
+	printf("ok td\n");
 	return (TRUE);
 }
 
@@ -70,14 +97,12 @@ static int		check_space(t_map *map)
 
 int				check_map(t_game *game)
 {
-	printf("check map...\n");
 	if (!check_player_pos(game))
 		return (FALSE);
-	if (!check_border_lr(&game->map) || !check_border_td(&game->map) ||
-		!check_space(&game->map))
-	{
-		ft_putstr_fd("Error\nMap isn't surrounded by walls\n", 2);
-		return (FALSE);
-	}
+	if (!check_elem(&game->map))
+		return (msg_err(BAD_CARAC,""));
+	if (!check_border_lr(&game->map) ||
+		!check_border_td(&game->map) || !check_space(&game->map))
+		return (msg_err(NOT_SURROUNDED,""));
 	return (check_sprites(game));
 }
