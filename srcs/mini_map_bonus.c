@@ -12,6 +12,18 @@
 
 #include "../includes/cub3d.h"
 
+static int		color_minimap(char wall)
+{
+	if (wall == '0')
+		return (WHITE);
+	if (wall == '1')
+		return (GRAY);
+	if (wall == ' ')
+		return (-1);
+	else 
+		return (RED);
+}
+
 void			render_map(t_game *game)
 {
 	unsigned int	x;
@@ -25,16 +37,14 @@ void			render_map(t_game *game)
 		x = 0;
 		while (x < game->map.num_cols)
 		{
-			if (game->map.tab[y][x] == '0')
-				color = WHITE;
-			else if (game->map.tab[y][x] == '1')
-				color = GRAY;
-			else
-				color = NONE;
-			point.x = x * game->win.t_size * SIZE_MINI_MAP;
-			point.y = y * game->win.t_size * SIZE_MINI_MAP;
-			cube(&game->win, point,
+			color = color_minimap(game->map.tab[y][x]);
+			if (color != -1)
+			{
+				point.x = x * game->win.t_size * SIZE_MINI_MAP;
+				point.y = y * game->win.t_size * SIZE_MINI_MAP;
+				cube(&game->win, point,
 				game->win.t_size * SIZE_MINI_MAP, color);
+			}
 			x++;
 		}
 		y++;
