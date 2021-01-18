@@ -21,12 +21,8 @@ int		valid_resol(t_game *game)
 	{
 		game->win.mlx_ptr = mlx_init();
 		if (!game->win.mlx_ptr)
-		{
-			ft_putstr_fd("Error\nmlx_init() fail.\n", 2);
-			return (FALSE);
-		}
+			return (msg_err(FAIL_MLX, ""));
 		mlx_get_screen_size(game->win.mlx_ptr, &resol_x, &resol_y);
-		printf("screen_size = (%d,%d)\n", resol_x, resol_y);
 		if (game->win.width > resol_x)
 			game->win.width = resol_x;
 		if (game->win.height > resol_y)
@@ -44,16 +40,10 @@ int				setup_color(t_game *game, char **tab)
 	{
 		color = parse_color(tab[1]);
 		if (color == -1)
-		{
-			ft_putstr_fd("Error\nBad color\n", 2);
-			return (FALSE);
-		}
+			return (msg_err(BAD_COLOR, ""));
 	}
 	else
-	{
-		ft_putstr_fd("Error\nCouldn't parse color for sky/floor\n", 2);
-		return (FALSE);
-	}
+		return (msg_err(BAD_COLOR, "Couldn't parse color"));
 	if (ft_strequ(tab[0], "F"))
 		game->win.f_color = color;
 	else

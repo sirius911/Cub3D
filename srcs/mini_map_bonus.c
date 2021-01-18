@@ -20,7 +20,7 @@ static int		color_minimap(char wall)
 		return (GRAY);
 	if (wall == ' ')
 		return (-1);
-	else 
+	else
 		return (RED);
 }
 
@@ -40,10 +40,10 @@ void			render_map(t_game *game)
 			color = color_minimap(game->map.tab[y][x]);
 			if (color != -1)
 			{
-				point.x = x * game->win.t_size * SIZE_MINI_MAP;
-				point.y = y * game->win.t_size * SIZE_MINI_MAP;
+				point.x = x * SIZE_MINI_MAP;
+				point.y = y * SIZE_MINI_MAP;
 				cube(&game->win, point,
-				game->win.t_size * SIZE_MINI_MAP, color);
+				10, color);
 			}
 			x++;
 		}

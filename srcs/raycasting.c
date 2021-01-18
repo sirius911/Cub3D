@@ -49,9 +49,9 @@ static void		typ_ray(t_game *game, t_ray *ray, int vert)
 	touch = ray->wall_hit;
 	ray->hit_vert = vert;
 	if (vert && is_ray_facing_left(ray->angle))
-		touch.x -= 1;
+		touch.x -= 1.0;
 	if (!vert && is_ray_facing_up(ray->angle))
-		touch.y -= 1;
+		touch.y -= 1.0;
 	wall(game, ray, touch);
 }
 

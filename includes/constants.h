@@ -29,4 +29,10 @@
 # define BAD_RESOLUTION "Bad resolution"
 # define TWICE_RESOLUTION "Resolution specified twice"
 # define INVALID_FC_LINE "Invalid floor/ceiling line"
+# define BAD_FORMAT_MAP "Bad format in the map section"
+# define FAIL_MALLOC "Malloc fail"
+# define FAIL_MLX "mlx_init() fail."
+# define BAD_COLOR "Bad color."
+# define BAD_MAP_FILE "Not the good format of map's file .cub"
+# define BAD_ARG "Invalid arguments"
 #endif

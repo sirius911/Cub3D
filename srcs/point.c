@@ -32,8 +32,7 @@ void			add_val_point(t_point *point, float val)
 
 float			normalize_angle(float angle)
 {
-	while (angle >= 2 * M_PI)
-		angle -= (2 * M_PI);
+	angle = fmod(angle, (2 * M_PI));
 	while (angle < 0)
 		angle += 2 * M_PI;
 	return (angle);

@@ -12,15 +12,15 @@
 
 #include "../includes/cub3d.h"
 
-void			free_list(void *data)
+void					free_list(void *data)
 {
 	free(data);
 	data = NULL;
 }
 
-void			free_rays(t_ray **tab, int len)
+void					free_rays(t_ray **tab, int len)
 {
-	int		i;
+	int					i;
 
 	i = 0;
 	if (tab)
@@ -34,7 +34,7 @@ void			free_rays(t_ray **tab, int len)
 	}
 }
 
-void			free_tab(char **tab)
+void					free_tab(char **tab)
 {
 	if (tab)
 	{
@@ -47,9 +47,18 @@ void			free_tab(char **tab)
 	}
 }
 
-/*int				free_map_setup(t_list *list, int result)
+void					free_map(t_map *map)
 {
-	ft_lstclear(&list, &free_list);
-	//free(list);
-	return (result);
-}*/
+	unsigned int		i;
+
+	i = 0;
+	while (i < map->num_rows)
+	{
+		free(map->tab[i]);
+		i++;
+	}
+	free(map->tab);
+	free(map->name);
+	map->tab = NULL;
+	map->name = NULL;
+}

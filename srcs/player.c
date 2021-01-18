@@ -20,7 +20,7 @@ void				init_player(t_player *player)
 	player->walk_dir = 0;
 	player->trans_dir = 0;
 	player->rot_angle = 0;
-	player->move_speed = 10.0;
+	player->move_speed = 0.3;
 	player->rot_speed = 4 * (M_PI / 180);
 }
 
@@ -28,8 +28,8 @@ static int			valid_pos_player(t_game *game, int x, int y, char dir)
 {
 	if (game->player.coord.x == -1 && game->player.coord.y == -1)
 	{
-		game->player.coord.x = (x * game->win.t_size) + (game->win.t_size / 2);
-		game->player.coord.y = (y * game->win.t_size) + (game->win.t_size / 2);
+		game->player.coord.x = (float)x + 0.5;
+		game->player.coord.y = (float)y + 0.5;
 		if (dir == 'E')
 			game->player.rot_angle = 0;
 		else if (dir == 'S')
@@ -41,7 +41,7 @@ static int			valid_pos_player(t_game *game, int x, int y, char dir)
 		return (TRUE);
 	}
 	else
-		return (msg_err(DUPLICATE_PLAYER,""));
+		return (msg_err(DUPLICATE_PLAYER, ""));
 }
 
 int					check_player_pos(t_game *game)
@@ -67,7 +67,7 @@ int					check_player_pos(t_game *game)
 		y++;
 	}
 	if (game->player.coord.x == -1)
-		return (msg_err(NO_POSITON_PLAYER,""));
+		return (msg_err(NO_POSITON_PLAYER, ""));
 	return (ret);
 }
 

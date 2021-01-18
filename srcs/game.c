@@ -68,26 +68,28 @@ int			valid_game(t_game *game, t_list *list, int ret)
 
 void		run_game(t_game *game)
 {
+	printf("screen size : width = %d\theight = %d\n", game->win.width, game->win.height);
 	if (game->save)
 		printf("TODO : save\n");
 	else
 	{
 		game->win.win_ptr = mlx_new_window(game->win.mlx_ptr,
 		game->win.width, game->win.height, game->map.name);
-		printf("screen size : width = %d\theight = %d\n", game->win.width, game->win.height);
 		creat_images(&game->win);
 		printf("nb sprites = %d\n", game->nb_sprite);
-		mlx_hook(game->win.win_ptr, 2, 1L << 0, deal_key, game);
-		mlx_hook(game->win.win_ptr, 3, 1L << 1, release_key, game);
+		mlx_hook(game->win.win_ptr, 33, 1L << 17, &game_close, game);
+		mlx_hook(game->win.win_ptr, 2, 1L << 0, &deal_key, game);
+		mlx_hook(game->win.win_ptr, 3, 1L << 1, &release_key, game);
 		render(game);
 		mlx_loop(game->win.mlx_ptr);
 	}
 }
 
-void		game_close(t_game *game)
+int			game_close(t_game *game)
 {
 	free_sprite(game);
 	free_texture(&game->win, game->tex);
 	free_map(&game->map);
 	free_win(&game->win);
+	return (TRUE);
 }

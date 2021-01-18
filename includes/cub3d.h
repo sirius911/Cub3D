@@ -34,7 +34,7 @@
 # define KEY_RIGHT	65363//124//
 # define KEY_UP		65362//126//
 # define KEY_DOWN	65364//125//
-# define SIZE_MINI_MAP 0.2
+# define SIZE_MINI_MAP 10.0
 # define NONE 0xFF000000
 # define GRAY 0x00AAAAAA
 # define WHITE 0x00FFFFFF
@@ -127,7 +127,6 @@ typedef struct	s_win
 	t_image			image;
 	int				f_color;
 	int				c_color;
-	unsigned int	t_size;
 
 }				t_win;
 
@@ -159,7 +158,6 @@ void			free_sprite(t_game *game);
 void			free_rays(t_ray **tab, int len);
 void			free_list(void *data);
 int				is_number(char *str);
-//int				setup_resol(t_game *game, char **tab);
 int				setup_color(t_game *game, char **tab);
 int				parse_color(char *str);
 int				create_trgb(int t, int r, int g, int b);
@@ -167,7 +165,7 @@ int				parse_line(char *line, t_game *game, t_list **list);
 int				parse_tab(t_game *game, char *line, t_list **list);
 int				map_setup(t_game *game, t_list *list);
 void			free_map(t_map *map);
-void			game_close(t_game *game);
+int				game_close(t_game *game);
 void			free_win(t_win *win);
 void			free_image(t_win *win);
 int				check_map(t_game *game);
@@ -177,7 +175,7 @@ int				check_player_pos(t_game *game);
 void			creat_images(t_win *win);
 int				deal_key(int key, t_game *game);
 int				release_key(int key, t_game *game);
-void			render(t_game *game);
+int				render(t_game *game);
 void			cube(t_win *win, t_point point, int size, int color);
 void			draw_lines(t_win *win, t_point a, t_point b, int color);
 void			update_player(t_game *game);
@@ -211,6 +209,5 @@ void			fact_vect(t_point *point, float fact);
 void			cpy_point(t_point *dst, t_point *src);
 void			add_val_point(t_point *point, float val);
 void			ft_print_list(t_list *list);
-/*void		list_texture(t_texture texture[5]);*/
 
 #endif

@@ -21,7 +21,6 @@ void		init_win(t_win *win)
 	win->num_rays = 0;
 	win->c_color = -1;
 	win->f_color = -1;
-	win->t_size = 0;
 	init_image(&win->image);
 }
 
@@ -34,6 +33,7 @@ void		free_win(t_win *win)
 		mlx_destroy_window(win->mlx_ptr, win->win_ptr);
 		mlx_destroy_display(win->mlx_ptr);
 		free(win->mlx_ptr);
+		exit(0);
 	}
 	win->mlx_ptr = NULL;
 }

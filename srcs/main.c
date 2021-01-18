@@ -46,8 +46,7 @@ static void		init(char *file_name, int save)
 	init_game(&game, save);
 	if (load_file(&game, file_name))
 		run_game(&game);
-	else
-		game_close(&game);
+	game_close(&game);
 }
 
 static int		is_valid_file(char *file_name)
@@ -75,11 +74,9 @@ int				main(int argc, char **argv)
 		if (is_valid_file(argv[1]))
 			init(argv[1], FALSE);
 		else
-			ft_putstr_fd("Error\nMap not a .cub\n", 2);
+			msg_err(BAD_MAP_FILE, "");
 	}
 	else
-	{
-		ft_putstr_fd("Error\nInvalid arguments\n", 2);
-	}
+		msg_err(BAD_ARG, "");
 	return (0);
 }

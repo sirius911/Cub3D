@@ -44,22 +44,6 @@ void		init_map(t_map *map)
 	map->num_cols = 0;
 }
 
-void		free_map(t_map *map)
-{
-	unsigned int		i;
-
-	i = 0;
-	while (i < map->num_rows)
-	{
-		free(map->tab[i]);
-		i++;
-	}
-	free(map->tab);
-	free(map->name);
-	map->tab = NULL;
-	map->name = NULL;
-}
-
 static int	fill_tab(t_game *game, t_list *list)
 {
 	int					i;
@@ -73,10 +57,7 @@ static int	fill_tab(t_game *game, t_list *list)
 			ft_memcpy(game->map.tab[i], list->content,
 				ft_strlen(list->content));
 		else
-		{
-			ft_putstr_fd("Error\nMalloc fail (map table)\n", 2);
-			return (FALSE);
-		}
+			return (msg_err(FAIL_MALLOC, "(*map table)"));
 		list = list->next;
 		i++;
 	}
@@ -91,21 +72,12 @@ int			map_setup(t_game *game, t_list *list)
 	max_col = nb_col(list);
 	max_line = ft_lstsize(list);
 	if (max_col == 0 || max_line == 0)
-	{
-		ft_putstr_fd("Error\nBad format in the map section\n", 2);
-		return (FALSE);
-	}
+		return (msg_err(BAD_FORMAT_MAP, ""));
 	game->map.num_rows = max_line;
 	game->map.num_cols = max_col;
-	game->win.t_size = game->win.width / game->map.num_cols;
-	if ((game->win.height / game->map.num_rows) < game->win.t_size)
-		game->win.t_size = game->win.height / game->map.num_rows;
 	game->map.tab = (char **)malloc(sizeof(char *) * max_line);
 	if (game->map.tab)
 		return (fill_tab(game, list));
 	else
-	{
-		ft_putstr_fd("Error\nMalloc fail (map table)\n", 2);
-		return (FALSE);
-	}
+		return (msg_err(FAIL_MALLOC, "(**map table)"));
 }
