@@ -12,6 +12,22 @@
 
 #include "../includes/cub3d.h"
 
+int			get_pixel_color(t_image img, int x, int y)
+{
+	char			*dst;
+
+	if (x < 0)
+		x = 0;
+	if (y < 0)
+		y = 0;
+	if (x > img.width)
+		x = img.width;
+	if (y > img.height)
+		y = img.height;
+	dst = img.addr + (y * img.line_length + x * img.bits_per_pixel / 8);
+	return (*(unsigned int*)dst);
+}
+
 void		init_image(t_image *image)
 {
 	image->img = NULL;
@@ -28,6 +44,8 @@ void		creat_images(t_win *win)
 	win->image.img = mlx_new_image(win->mlx_ptr, win->width, win->height);
 	win->image.addr = mlx_get_data_addr(win->image.img,
 	&win->image.bits_per_pixel, &win->image.line_length, &win->image.endian);
+	win->image.width = win->width;
+	win->image.height = win->height;
 }
 
 void		free_image(t_win *win)

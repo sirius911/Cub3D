@@ -20,6 +20,7 @@ SRC			=	srcs/main.c srcs/images.c srcs/map.c srcs/player.c srcs/window.c srcs/to
 				srcs/map_utils.c srcs/raycasting.c srcs/textures.c srcs/mini_map_bonus.c \
 				srcs/point.c srcs/facing.c srcs/inters_vert.c srcs/inters_horz.c srcs/free_functions.c \
 				srcs/check_sprites.c srcs/error.c srcs/sprites.c srcs/textures_utils.c srcs/sprites_utils.c \
+				srcs/bmp.c
 				#srcs/alloc-wrap.c
 
 CC			=	clang
@@ -43,6 +44,7 @@ $(NAME): $(OBJ)
 
 clean:
 	rm -rf $(OBJ)
+	rm -rf save.bmp
 
 fclean: clean
 	@make fclean -C libft/

@@ -35,4 +35,6 @@
 # define BAD_COLOR "Bad color."
 # define BAD_MAP_FILE "Not the good format of map's file .cub"
 # define BAD_ARG "Invalid arguments"
+# define OPEN_WRITE_FAIL "File creation failed."
+# define CLOSE_FAIL "Failed file closure."
 #endif

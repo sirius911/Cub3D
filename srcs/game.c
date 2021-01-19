@@ -74,6 +74,8 @@ void		run_game(t_game *game)
 	if (game->save)
 	{
 		render(game);
+		save_bmp(game);
+		free_image(&game->win);
 		game_close(game);
 	}
 	else

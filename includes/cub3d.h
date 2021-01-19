@@ -50,6 +50,7 @@
 # define SOUTH 2
 # define WEST 3
 # define SPRITE 4
+# define BMP_NAME "save.bmp"
 
 typedef struct	s_point
 {
@@ -90,7 +91,6 @@ typedef struct	s_image
 typedef struct	s_player
 {
 	t_point			coord;
-	//float			radius;
 	int				turn_dir;
 	int				walk_dir;
 	int				trans_dir;
@@ -215,6 +215,8 @@ void			sort_sprites(t_sprite *sprites, int nb_sprites);
 float			sprite_angle(t_point sprite_pos, t_point player_pos,
 				float player_rot_angle);
 int				sprite_visible(float angle_sprite);
+int				save_bmp(t_game *game);
+int				get_pixel_color(t_image img, int x, int y);
 /*
 				BONUS
 */

@@ -25,11 +25,8 @@ static int		check_elem(t_map *map)
 		while (j < map->num_cols)
 		{
 			c = map->tab[i][j];
-			if (c != '0' && c!= '1' && c!= '2' && c!= ' ')
-			{
-				printf("c = %c\n", c);
+			if (c != '0' && c != '1' && c != '2' && c != ' ')
 				return (FALSE);
-			}
 			j++;
 		}
 		i++;
@@ -50,7 +47,6 @@ static int		check_border_lr(t_map *map)
 			return (FALSE);
 		i++;
 	}
-	printf("ok_lr\n");
 	return (TRUE);
 }
 
@@ -67,7 +63,6 @@ static int		check_border_td(t_map *map)
 			return (FALSE);
 		j++;
 	}
-	printf("ok td\n");
 	return (TRUE);
 }
 
@@ -100,9 +95,9 @@ int				check_map(t_game *game)
 	if (!check_player_pos(game))
 		return (FALSE);
 	if (!check_elem(&game->map))
-		return (msg_err(BAD_CARAC,""));
+		return (msg_err(BAD_CARAC, ""));
 	if (!check_border_lr(&game->map) ||
 		!check_border_td(&game->map) || !check_space(&game->map))
-		return (msg_err(NOT_SURROUNDED,""));
+		return (msg_err(NOT_SURROUNDED, ""));
 	return (check_sprites(game));
 }

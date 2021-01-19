@@ -78,5 +78,7 @@ int					render(t_game *game)
 	if (!game->save)
 		mlx_put_image_to_window(game->win.mlx_ptr, game->win.win_ptr,
 	game->win.image.img, 0, 0);
+	else
+		printf("save\n");
 	return (TRUE);
 }
