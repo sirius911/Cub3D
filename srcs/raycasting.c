@@ -85,25 +85,13 @@ void			cast_all_rays(t_game *game)
 {
 	float		ray_angle;
 	int			i;
-	//t_ray		*ray;
-	//t_ray		**tab_rays;
 
-	//tab_rays = (t_ray**)malloc(sizeof(t_ray) * game->win.num_rays);
-	/*if (!tab_rays)
-	{
-		ft_putstr_fd("Error\nMalloc() fail\n", 2);
-		game_close(game);
-	}*/
 	ray_angle = game->player.rot_angle - (FOV_ANGLE / 2);
 	i = 0;
 	while (i < game->win.num_rays)
 	{
-		//ray = (t_ray*)malloc(sizeof(t_ray));
-		//*ray = wall_hit(ray_angle, game);
-		//tab_rays[i] = ray;
 		game->tab_rays[i] = wall_hit(ray_angle, game);
 		ray_angle += FOV_ANGLE / game->win.num_rays;
 		i++;
 	}
-	//return (tab_rays);
 }

@@ -12,7 +12,7 @@
 
 #include "../includes/cub3d.h"
 
-void		init_texture(t_game *game)
+void				init_texture(t_game *game)
 {
 	int				i;
 
@@ -46,7 +46,7 @@ static int			valid_texture(t_game *game, char *file, int nb)
 	return (TRUE);
 }
 
-int			load_textures(t_game *game)
+int					load_textures(t_game *game)
 {
 	int				i;
 
@@ -63,7 +63,7 @@ int			load_textures(t_game *game)
 		}
 		else
 		{
-			msg_err(BAD_TEXTURE,game->tex[i].file);
+			msg_err(BAD_TEXTURE, game->tex[i].file);
 			return (FALSE);
 		}
 		i++;
@@ -71,7 +71,7 @@ int			load_textures(t_game *game)
 	return (TRUE);
 }
 
-int			parse_texture(t_game *game, char **tab)
+int					parse_texture(t_game *game, char **tab)
 {
 	if (ft_strequ(*tab, "NO"))
 		return (valid_texture(game, tab[1], NORTH));
@@ -86,7 +86,7 @@ int			parse_texture(t_game *game, char **tab)
 	return (FALSE);
 }
 
-void		free_texture(t_win *win, t_texture texture[5])
+void				free_texture(t_win *win, t_texture texture[5])
 {
 	int				i;
 

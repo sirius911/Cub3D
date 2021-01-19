@@ -17,7 +17,7 @@ static void			show_line(t_game *game, int x, t_ray ray, float wall_height)
 	int				i;
 	int				off_x;
 	int				off_y;
-	char			*dst;
+	int				color;
 
 	i = 0;
 	while (i < ray.top_pixel)
@@ -30,9 +30,8 @@ static void			show_line(t_game *game, int x, t_ray ray, float wall_height)
 	{
 		off_y = (i + (wall_height / 2.0) - (game->win.height / 2.0)) *
 		(game->tex[ray.id].height / wall_height);
-		dst = game->tex[ray.id].data + (off_y * game->tex[ray.id].line_length
-		+ off_x * (game->tex[ray.id].bits_per_pixel) / 8);
-		ft_mlx_pixel_put(&game->win, x, i++, *(unsigned int*)dst);
+		color = get_tex_color(game->tex[ray.id], off_x, off_y);
+		ft_mlx_pixel_put(&game->win, x, i++, color);
 	}
 	while (i < game->win.height)
 		ft_mlx_pixel_put(&game->win, x, i++, game->win.f_color);
@@ -67,9 +66,6 @@ void				gen_3d(t_game *game, t_ray *tab_rays)
 
 int					render(t_game *game)
 {
-	//t_ray			**tab_rays;
-
-	//game->tab_rays = cast_all_rays(game);
 	cast_all_rays(game);
 	gen_3d(game, game->tab_rays);
 	if (game->is_minimap)
@@ -79,8 +75,8 @@ int					render(t_game *game)
 		render_player(game);
 	}
 	scan_sprite(game);
-	//free_rays(game);
-	mlx_put_image_to_window(game->win.mlx_ptr, game->win.win_ptr,
+	if (!game->save)
+		mlx_put_image_to_window(game->win.mlx_ptr, game->win.win_ptr,
 	game->win.image.img, 0, 0);
 	return (TRUE);
 }

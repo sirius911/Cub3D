@@ -210,6 +210,11 @@ void			free_texture(t_win *win, t_texture texture[5]);
 int				parse_texture(t_game *game, char **tab);
 void			right_trim(char *str);
 int				scan_sprite(t_game *game);
+int				get_tex_color(t_texture tex, int x, int y);
+void			sort_sprites(t_sprite *sprites, int nb_sprites);
+float			sprite_angle(t_point sprite_pos, t_point player_pos,
+				float player_rot_angle);
+int				sprite_visible(float angle_sprite);
 /*
 				BONUS
 */

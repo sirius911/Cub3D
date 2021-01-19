@@ -17,23 +17,22 @@ int		valid_resol(t_game *game)
 	int			resol_x;
 	int			resol_y;
 
+	game->win.mlx_ptr = mlx_init();
+	if (!game->win.mlx_ptr)
+		return (msg_err(FAIL_MLX, ""));
 	if (!game->save)
 	{
-		game->win.mlx_ptr = mlx_init();
-		if (!game->win.mlx_ptr)
-			return (msg_err(FAIL_MLX, ""));
 		mlx_get_screen_size(game->win.mlx_ptr, &resol_x, &resol_y);
 		if (game->win.width > resol_x)
 			game->win.width = resol_x;
 		if (game->win.height > resol_y)
 			game->win.height = resol_y;
-		game->win.num_rays = game->win.width;
-		game->dist_proj_plane = (game->win.width / 2) / tan(FOV_ANGLE / 2);
-		game->tab_rays = (t_ray *)malloc(sizeof(t_ray) * game->win.width);
-		if (!game->tab_rays)
-			return (msg_err(FAIL_MALLOC, "tab_rays[]"));
 	}
-	//TODO :
+	game->win.num_rays = game->win.width;
+	game->dist_proj_plane = (game->win.width / 2) / tan(FOV_ANGLE / 2);
+	game->tab_rays = (t_ray *)malloc(sizeof(t_ray) * game->win.width);
+	if (!game->tab_rays)
+		return (msg_err(FAIL_MALLOC, "tab_rays[]"));
 	return (TRUE);
 }
 

@@ -10,83 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../includes/cub3d.h"
+#include "../includes/cub3d.h"
 
-static void			sort_sprites(t_sprite *sprites, int nb_sprites)
-{
-	t_sprite		tmp;
-	int				i;
-	int				j;
-
-	i = 0;
-	while (i < nb_sprites)
-	{
-		j = i;
-		while (j < nb_sprites)
-		{
-			if (sprites[i].dist < sprites[j].dist)
-			{
-				tmp = sprites[j];
-				sprites[j] = sprites[i];
-				sprites[i] = tmp;
-				i = 0;
-			}
-			j++;
-		}
-		i++;
-	}
-}
-
-static float		sprite_angle(t_point sprite_pos, t_point player_pos,
-		float player_rot_angle)
-{
-	float			dx;
-	float			dy;
-	float			angle;
-
-	dx = sprite_pos.x - player_pos.x;
-	dy = sprite_pos.y - player_pos.y;
-	angle = atan2(dy, dx) - player_rot_angle;
-	return (angle);
-}
-
-static int			sprite_visible(float angle_sprite)
-{
-	if (angle_sprite < -M_PI)
-		angle_sprite += 2 * M_PI;
-	if (angle_sprite >= M_PI)
-		angle_sprite -= 2 * M_PI;
-	if (angle_sprite < 0)
-		angle_sprite = -angle_sprite;
-	return (angle_sprite < (FOV_ANGLE / 2));
-}
-
-static int			get_tex_color(t_texture tex, int x, int y)
-{
-	char			*dst;
-
-	if (x < 0)
-		x = 0;
-	if (y < 0)
-		y = 0;
-	if (x >  tex.width)
-		x = tex.width;
-	if (y > tex.height)
-		y = tex.height;
-	dst = tex.data + (y * tex.line_length + x * tex.bits_per_pixel / 8);
-	return (*(unsigned int*)dst);
-}
-
-static void			draw_sprite(t_game *game, t_sprite sprite, t_point pos, t_point offset)
+static void			draw_sprite(t_game *game, t_sprite sprite, t_point pos,
+					t_point offset)
 {
 	int				color;
 	int				no_color;
 
 	no_color = get_tex_color(game->tex[SPRITE], 0, 0);
-	offset.y = (pos.y + (sprite.height / 2.0) - (game->win.height / 2.0)) * (game->tex[SPRITE].height / sprite.height);
+	offset.y = (pos.y + (sprite.height / 2.0) - (game->win.height / 2.0)) *
+	(game->tex[SPRITE].height / sprite.height);
 	if (offset.y < 0)
 		offset.y = 0;
-	color = get_tex_color(game->tex[SPRITE],offset.x, offset.y);
+	color = get_tex_color(game->tex[SPRITE], offset.x, offset.y);
 	if (color != no_color)
 		ft_mlx_pixel_put(&game->win, sprite.first_x + pos.x, pos.y, color);
 }
@@ -98,9 +35,10 @@ static void			render_sprite(t_game *game, t_sprite sprite)
 	float			dist_ray;
 
 	point.x = -1;
-	while(sprite.first_x + point.x < 0)
+	while (sprite.first_x + point.x < 0)
 		point.x++;
-	while(++point.x < sprite.height && sprite.first_x + point.x < game->win.width)
+	while (++point.x < sprite.height &&
+		sprite.first_x + point.x < game->win.width)
 	{
 		dist_ray = game->tab_rays[(int)(sprite.first_x + point.x)].dist;
 		if (dist_ray > game->tab_sprite[sprite.index].dist)
@@ -113,7 +51,7 @@ static void			render_sprite(t_game *game, t_sprite sprite)
 	}
 }
 
-static void 		sprite_data(t_game *game, t_sprite *sprite)
+static void			sprite_data(t_game *game, t_sprite *sprite)
 {
 	int				i;
 	int				top;
@@ -153,7 +91,8 @@ int					scan_sprite(t_game *game)
 			game->tab_sprite[nb].pos);
 		game->tab_sprite[nb].angle = sprite_angle(game->tab_sprite[nb].pos,
 			game->player.coord, game->player.rot_angle);
-		game->tab_sprite[nb].is_visible = sprite_visible(game->tab_sprite[nb].angle);
+		game->tab_sprite[nb].is_visible =
+		sprite_visible(game->tab_sprite[nb].angle);
 		nb++;
 	}
 	sort_sprites(game->tab_sprite, game->nb_sprite);
