@@ -90,7 +90,7 @@ typedef struct	s_image
 typedef struct	s_player
 {
 	t_point			coord;
-	float			radius;
+	//float			radius;
 	int				turn_dir;
 	int				walk_dir;
 	int				trans_dir;
@@ -113,8 +113,16 @@ typedef struct	s_texture
 
 typedef struct 	s_sprite
 {
-	int				x;
-	int				y;
+	int				index;
+	t_point			pos;
+	float			dist;
+	float			angle;
+	int				is_visible;
+	float			height;
+	int				top_pixel;
+	int				bot_pixel;
+	float			first_x;
+
 }				t_sprite;
 
 typedef struct	s_win
@@ -137,6 +145,8 @@ typedef struct	s_game
 	t_player		player;
 	t_texture		tex[5];
 	t_sprite		*tab_sprite;
+	t_ray			*tab_rays;
+	float			dist_proj_plane;
 	int				nb_sprite;
 	int				is_minimap;
 	int				in_map;
@@ -155,7 +165,7 @@ int				valid_resol(t_game *game);
 void			run_game(t_game *game);
 void			free_tab(char **tab);
 void			free_sprite(t_game *game);
-void			free_rays(t_ray **tab, int len);
+void			free_rays(t_game *game);
 void			free_list(void *data);
 int				is_number(char *str);
 int				setup_color(t_game *game, char **tab);
@@ -190,7 +200,7 @@ int				is_ray_facing_right(float angle);
 int				is_ray_facing_left(float angle);
 t_point			horz_wall_hit(float ray_angle, t_game *game);
 t_point			vert_wall_hit(float ray_angle, t_game *game);
-t_ray			**cast_all_rays(t_game *game);
+void			cast_all_rays(t_game *game);
 int				find_color(int wall);
 void			rect(t_win *win, t_point a, t_point coord, int color);
 void			clear_image(t_win *win);
@@ -199,10 +209,11 @@ int				load_textures(t_game *game);
 void			free_texture(t_win *win, t_texture texture[5]);
 int				parse_texture(t_game *game, char **tab);
 void			right_trim(char *str);
+int				scan_sprite(t_game *game);
 /*
 				BONUS
 */
-void			render_ray_map(t_game *game, t_ray **rays);
+void			render_ray_map(t_game *game, t_ray *rays);
 void			render_player(t_game *game);
 void			render_map(t_game *game);
 void			fact_vect(t_point *point, float fact);

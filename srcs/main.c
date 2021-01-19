@@ -36,6 +36,7 @@ static int		load_file(t_game *game, char *file_name)
 		free(line);
 	}
 	close(fd);
+	game->map.name = ft_strdup(file_name);
 	return (valid_game(game, list, ret));
 }
 

@@ -49,8 +49,11 @@ static void			load_sprites(t_game *game)
 		{
 			if (game->map.tab[i][j] == '2' && nb < game->nb_sprite)
 			{
-				game->tab_sprite[nb].x = j;
-				game->tab_sprite[nb].y = i;
+				game->tab_sprite[nb].pos.x = j + 0.5;
+				game->tab_sprite[nb].pos.y = i + 0.5;
+				game->tab_sprite[nb].dist = -1;
+				game->tab_sprite[nb].angle = 0;
+				game->tab_sprite[nb].is_visible = FALSE;
 				nb++;
 			}
 			j++;
@@ -68,16 +71,12 @@ void				free_sprite(t_game *game)
 int					check_sprites(t_game *game)
 {
 	game->nb_sprite = nb_sprites(&game->map);
-	printf("nb sprite = %d\n", game->nb_sprite);
 	if (game->nb_sprite > 0)
 	{
 		game->tab_sprite = (t_sprite*)malloc(sizeof(t_sprite) * game->nb_sprite);
 		if (!game->tab_sprite)
-		{
-			ft_putstr_fd("Error\nMalloc fail for tab sprite.\n", 2);
-			return (FALSE);
-		}
+			return (msg_err(FAIL_MALLOC, "Tab sprites"));
+		load_sprites(game);
 	}
-	load_sprites(game);
 	return (TRUE);
 }

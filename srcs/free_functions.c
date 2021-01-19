@@ -18,20 +18,21 @@ void					free_list(void *data)
 	data = NULL;
 }
 
-void					free_rays(t_ray **tab, int len)
+void					free_rays(t_game *game)
 {
-	int					i;
+	(void)game;
+/*	int					i;
 
 	i = 0;
-	if (tab)
+	if (game->tab_rays)
 	{
-		while (i < len)
+		while (i < game->win.num_rays)
 		{
-			free(tab[i]);
+			free(game->tab_rays[i]);
 			i++;
 		}
-		tab = NULL;
-	}
+		game->tab_rays = NULL;
+	}*/
 }
 
 void					free_tab(char **tab)

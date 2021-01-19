@@ -66,7 +66,7 @@ void			render_player(t_game *game)
 	draw_lines(&game->win, a, b, BLACK);
 }
 
-void			render_ray_map(t_game *game, t_ray **rays)
+void			render_ray_map(t_game *game, t_ray *rays)
 {
 	t_point			wall_point;
 	t_point			player;
@@ -78,7 +78,7 @@ void			render_ray_map(t_game *game, t_ray **rays)
 	fact_vect(&player, SIZE_MINI_MAP);
 	while (i < game->win.num_rays)
 	{
-		ray = *rays[i];
+		ray = rays[i];
 		wall_point = ray.wall_hit;
 		fact_vect(&wall_point, SIZE_MINI_MAP);
 		draw_lines(&game->win, player, wall_point, RED);

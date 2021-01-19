@@ -19,10 +19,12 @@ void		init_game(t_game *game, int save)
 	init_player(&game->player);
 	init_texture(game);
 	game->tab_sprite = NULL;
+	game->tab_rays = NULL;
 	game->save = save;
 	game->is_minimap = FALSE;
 	game->nb_sprite = 0;
 	game->in_map = FALSE;
+	game->dist_proj_plane = 0.0;
 }
 
 static int	check_data_game(t_game *game)
@@ -87,6 +89,8 @@ void		run_game(t_game *game)
 
 int			game_close(t_game *game)
 {
+	if (game->tab_rays)
+		free(game->tab_rays);
 	free_sprite(game);
 	free_texture(&game->win, game->tex);
 	free_map(&game->map);

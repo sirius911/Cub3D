@@ -28,7 +28,12 @@ int		valid_resol(t_game *game)
 		if (game->win.height > resol_y)
 			game->win.height = resol_y;
 		game->win.num_rays = game->win.width;
+		game->dist_proj_plane = (game->win.width / 2) / tan(FOV_ANGLE / 2);
+		game->tab_rays = (t_ray *)malloc(sizeof(t_ray) * game->win.width);
+		if (!game->tab_rays)
+			return (msg_err(FAIL_MALLOC, "tab_rays[]"));
 	}
+	//TODO :
 	return (TRUE);
 }
 
