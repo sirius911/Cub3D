@@ -29,7 +29,7 @@ static int		load_file(t_game *game, char *file_name)
 		msg_err(FAIL_OPEN, file_name);
 		return (FALSE);
 	}
-	while (ret && nb_oct > 0)
+	while (nb_oct > 0)
 	{
 		nb_oct = get_next_line(fd, &line);
 		ret = ret && parse_line(line, game, &list);

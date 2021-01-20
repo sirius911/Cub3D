@@ -40,11 +40,11 @@ int				setup_color(t_game *game, char **tab)
 {
 	int			color;
 
-	if (tab[1])
+	if (tab[1] && tab[1][0] != '\0')
 	{
 		color = parse_color(tab[1]);
 		if (color == -1)
-			return (msg_err(BAD_COLOR, ""));
+			return (FALSE);
 	}
 	else
 		return (msg_err(BAD_COLOR, "Couldn't parse color"));

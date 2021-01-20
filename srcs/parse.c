@@ -62,20 +62,19 @@ int				parse_color(char *str)
 	int			color;
 	int			i;
 
-	i = 0;
-	if (!str || str[0] == '\0')
-		return (-1);
+	i = -1;
 	rgb = ft_split(str, ',');
-	while (i < 3)
+	while (++i < 3)
 	{
 		if (rgb[i] && is_number(rgb[i]) && valid_color(ft_atoi(rgb[i])))
 			color_tab[i] = ft_atoi(rgb[i]);
 		else
 		{
+			free_tab(rgb);
+			free(rgb);
 			msg_err(INVALID_FC_LINE, "");
 			return (-1);
 		}
-		i++;
 	}
 	color = create_trgb(0x0, color_tab[0], color_tab[1], color_tab[2]);
 	free_tab(rgb);

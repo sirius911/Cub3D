@@ -38,10 +38,14 @@ static int			valid_texture(t_game *game, char *file, int nb)
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 	{
-		printf("Error\nCouldn't open file texture :(%s)\n", file);
-		return (FALSE);
+		if (file)
+			return (msg_err(BAD_TEXTURE, file));
+		else
+			return (msg_err(TEXT_MISSING, "no file"));
 	}
 	close(fd);
+	if (game->tex[nb].file)
+		return (msg_err(TWICE_TEXTURE, ""));
 	game->tex[nb].file = ft_strdup(file);
 	return (TRUE);
 }
