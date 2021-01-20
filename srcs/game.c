@@ -21,7 +21,6 @@ void		init_game(t_game *game, int save)
 	game->tab_sprite = NULL;
 	game->tab_rays = NULL;
 	game->save = save;
-	game->is_minimap = FALSE;
 	game->nb_sprite = 0;
 	game->in_map = FALSE;
 	game->dist_proj_plane = 0.0;

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: clorin <clorin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/23 14:13:30 by clorin            #+#    #+#             */
-/*   Updated: 2021/01/12 16:04:47 by clorin           ###   ########.fr       */
+/*   Created: 2021/01/20 12:40:37 by clorin            #+#    #+#             */
+/*   Updated: 2021/01/20 12:40:42 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <float.h>
 # include "../libft/libft.h"
 # include "../minilibx/mlx.h"
-# include "constants.h"
+# include "constants_bonus.h"
 
 # define FALSE 0
 # define TRUE 1
@@ -29,10 +29,12 @@
 # define KEY_S 115
 # define KEY_D 100
 # define KEY_ESC	65307
+# define KEY_M		109
 # define KEY_LEFT	65361
 # define KEY_RIGHT	65363
 # define KEY_UP		65362
 # define KEY_DOWN	65364
+# define SIZE_MINI_MAP 10.0
 # define NONE 0xFF000000
 # define GRAY 0x00AAAAAA
 # define WHITE 0x00FFFFFF
@@ -146,6 +148,7 @@ typedef struct	s_game
 	t_ray			*tab_rays;
 	float			dist_proj_plane;
 	int				nb_sprite;
+	int				is_minimap;
 	int				in_map;
 	int				save;
 }				t_game;
@@ -214,8 +217,12 @@ int				sprite_visible(float angle_sprite);
 int				save_bmp(t_game *game);
 int				get_pixel_color(t_image img, int x, int y);
 int				is_texture(char **tab_line);
+void			render_ray_map(t_game *game, t_ray *rays);
+void			render_player(t_game *game);
+void			render_map(t_game *game);
 void			fact_vect(t_point *point, float fact);
 void			cpy_point(t_point *dst, t_point *src);
 void			add_val_point(t_point *point, float val);
+void			ft_print_list(t_list *list);
 
 #endif

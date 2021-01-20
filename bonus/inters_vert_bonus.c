@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   inters_vert.c                                      :+:      :+:    :+:   */
+/*   inters_vert_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 16:12:12 by clorin            #+#    #+#             */
-/*   Updated: 2021/01/12 16:12:14 by clorin           ###   ########.fr       */
+/*   Updated: 2021/01/20 12:43:18 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "cub3d_bonus.h"
 
 static t_point			inter_verti(float ray_angle, t_game *game)
 {

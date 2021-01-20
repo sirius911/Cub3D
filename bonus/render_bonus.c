@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render.c                                           :+:      :+:    :+:   */
+/*   render_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 14:00:47 by clorin            #+#    #+#             */
-/*   Updated: 2021/01/04 14:00:50 by clorin           ###   ########.fr       */
+/*   Updated: 2021/01/20 12:50:31 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "cub3d_bonus.h"
 
 static void			show_line(t_game *game, int x, t_ray ray, float wall_height)
 {

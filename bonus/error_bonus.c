@@ -1,48 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_functions.c                                   :+:      :+:    :+:   */
+/*   error_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clorin <clorin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/14 10:11:57 by clorin            #+#    #+#             */
-/*   Updated: 2021/01/14 10:12:27 by clorin           ###   ########.fr       */
+/*   Created: 2021/01/15 10:50:10 by clorin            #+#    #+#             */
+/*   Updated: 2021/01/20 12:46:37 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "cub3d_bonus.h"
 
-void					free_list(void *data)
+int					msg_err(char *msg, char *line)
 {
-	free(data);
-	data = NULL;
-}
-
-void					free_tab(char **tab)
-{
-	if (tab)
+	printf("Error\n%s", msg);
+	if (*line)
 	{
-		while (*tab)
-		{
-			free(*tab);
-			tab++;
-		}
-		tab = NULL;
+		printf(" (%s)\n", line);
 	}
-}
-
-void					free_map(t_map *map)
-{
-	unsigned int		i;
-
-	i = 0;
-	while (i < map->num_rows)
-	{
-		free(map->tab[i]);
-		i++;
-	}
-	free(map->tab);
-	free(map->name);
-	map->tab = NULL;
-	map->name = NULL;
+	else
+		printf("\n");
+	return (FALSE);
 }

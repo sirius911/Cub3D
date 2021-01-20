@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sprites.c                                          :+:      :+:    :+:   */
+/*   sprites_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clorin <clorin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 13:06:45 by clorin            #+#    #+#             */
-/*   Updated: 2021/01/18 13:07:14 by clorin           ###   ########.fr       */
+/*   Updated: 2021/01/20 12:44:58 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "cub3d_bonus.h"
 
 static void			draw_sprite(t_game *game, t_sprite sprite, t_point pos,
 					t_point offset)

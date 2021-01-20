@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sprites_utils.c                                    :+:      :+:    :+:   */
+/*   sprites_utils_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clorin <clorin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 11:13:28 by clorin            #+#    #+#             */
-/*   Updated: 2021/01/19 11:13:53 by clorin           ###   ########.fr       */
+/*   Updated: 2021/01/20 12:48:06 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "cub3d_bonus.h"
 
 void				sort_sprites(t_sprite *sprites, int nb_sprites)
 {

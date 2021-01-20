@@ -17,17 +17,17 @@ NAME = Cub3D
 
 SRC			=	srcs/main.c srcs/images.c srcs/map.c srcs/player.c srcs/window.c srcs/tools.c srcs/setup.c \
 				srcs/parse.c srcs/graphics.c srcs/game.c srcs/check_map.c srcs/keyboard.c srcs/render.c \
-				srcs/map_utils.c srcs/raycasting.c srcs/textures.c srcs/mini_map_bonus.c \
+				srcs/map_utils.c srcs/raycasting.c srcs/textures.c \
 				srcs/point.c srcs/facing.c srcs/inters_vert.c srcs/inters_horz.c srcs/free_functions.c \
 				srcs/check_sprites.c srcs/error.c srcs/sprites.c srcs/textures_utils.c srcs/sprites_utils.c \
 				srcs/bmp.c
 
-B_SRC		=	bonus/srcs/main.c bonus/srcs/images.c bonus/srcs/map.c bonus/srcs/player.c bonus/srcs/window.c bonus/srcs/tools.c bonus/srcs/setup.c \
-				bonus/srcs/parse.c bonus/srcs/graphics.c bonus/srcs/game.c bonus/srcs/check_map.c bonus/srcs/keyboard.c bonus/srcs/render.c \
-				bonus/srcs/map_utils.c bonus/srcs/raycasting.c bonus/srcs/textures.c bonus/srcs/mini_map_bonus.c \
-				bonus/srcs/point.c bonus/srcs/facing.c bonus/srcs/inters_vert.c bonus/srcs/inters_horz.c bonus/srcs/free_functions.c \
-				bonus/srcs/check_sprites.c bonus/srcs/error.c bonus/srcs/sprites.c bonus/srcs/textures_utils.c bonus/srcs/sprites_utils.c \
-				bonus/srcs/bmp.c
+B_SRC		=	bonus/main_bonus.c bonus/images_bonus.c bonus/map_bonus.c bonus/player_bonus.c bonus/window_bonus.c bonus/tools_bonus.c bonus/setup_bonus.c \
+				bonus/parse_bonus.c bonus/graphics_bonus.c bonus/game_bonus.c bonus/check_map_bonus.c bonus/keyboard_bonus.c bonus/render_bonus.c \
+				bonus/map_utils_bonus.c bonus/raycasting_bonus.c bonus/textures_bonus.c bonus/mini_map_bonus.c \
+				bonus/point_bonus.c bonus/facing_bonus.c bonus/inters_vert_bonus.c bonus/inters_horz_bonus.c bonus/free_functions_bonus.c \
+				bonus/check_sprites_bonus.c bonus/error_bonus.c bonus/sprites_bonus.c bonus/textures_utils_bonus.c bonus/sprites_utils_bonus.c \
+				bonus/bmp_bonus.c
 
 CC			=	clang
 
@@ -53,7 +53,7 @@ $(NAME): $(OBJ)
 	@echo "création de Cub3D : \033[32mok\033[0m"
 
 clean:
-	rm -rf $(OBJ)
+	rm -rf $(OBJ) $(B_OBJ)
 	rm -rf save.bmp
 
 fclean: clean
@@ -66,7 +66,7 @@ re: fclean all
 bonus: fclean $(B_OBJ)
 		@make -C libft/
 		@echo "\n\033[0;32mCompiling bonus..."
-		$(CC) -o $(NAME) $(FLAGS) $(B_HEADER) $(B_OBJ) -L libft/ -lft -L./minilibx -lmlx -lXext -lX11 -lm
+		@$(CC) -o $(NAME) $(FLAGS) $(B_HEADER) $(B_OBJ) -L libft/ -lft -L./minilibx -lmlx -lXext -lX11 -lm
 		@echo "\033[0m"
 test:	
 	./$(NAME) maps/map.cub
