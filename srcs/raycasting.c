@@ -86,12 +86,12 @@ void			cast_all_rays(t_game *game)
 	float		ray_angle;
 	int			i;
 
-	ray_angle = game->player.rot_angle - (FOV_ANGLE / 2);
 	i = 0;
 	while (i < game->win.num_rays)
 	{
+		ray_angle = game->player.rot_angle +
+		atan((i - game->win.num_rays / 2) / game->dist_proj_plane);
 		game->tab_rays[i] = wall_hit(ray_angle, game);
-		ray_angle += FOV_ANGLE / game->win.num_rays;
 		i++;
 	}
 }
