@@ -38,4 +38,5 @@
 # define OPEN_WRITE_FAIL "File creation failed."
 # define CLOSE_FAIL "Failed file closure."
 # define TWICE_TEXTURE "Texture specified twice."
+# define NO_MAP "No map !"
 #endif

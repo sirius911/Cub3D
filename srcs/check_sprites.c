@@ -73,7 +73,8 @@ int					check_sprites(t_game *game)
 	game->nb_sprite = nb_sprites(&game->map);
 	if (game->nb_sprite > 0)
 	{
-		game->tab_sprite = (t_sprite*)malloc(sizeof(t_sprite) * game->nb_sprite);
+		game->tab_sprite = (t_sprite*)malloc(sizeof(t_sprite)
+			* game->nb_sprite);
 		if (!game->tab_sprite)
 			return (msg_err(FAIL_MALLOC, "Tab sprites"));
 		load_sprites(game);

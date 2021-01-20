@@ -28,12 +28,12 @@
 # define KEY_W 119
 # define KEY_S 115
 # define KEY_D 100
-# define KEY_ESC	65307//53//
-# define KEY_M		109//46
-# define KEY_LEFT	65361//123//
-# define KEY_RIGHT	65363//124//
-# define KEY_UP		65362//126//
-# define KEY_DOWN	65364//125//
+# define KEY_ESC	65307
+# define KEY_M		109
+# define KEY_LEFT	65361
+# define KEY_RIGHT	65363
+# define KEY_UP		65362
+# define KEY_DOWN	65364
 # define SIZE_MINI_MAP 10.0
 # define NONE 0xFF000000
 # define GRAY 0x00AAAAAA
@@ -111,7 +111,7 @@ typedef struct	s_texture
 	int				endian;
 }				t_texture;
 
-typedef struct 	s_sprite
+typedef struct	s_sprite
 {
 	int				index;
 	t_point			pos;
@@ -165,7 +165,6 @@ int				valid_resol(t_game *game);
 void			run_game(t_game *game);
 void			free_tab(char **tab);
 void			free_sprite(t_game *game);
-void			free_rays(t_game *game);
 void			free_list(void *data);
 int				is_number(char *str);
 int				setup_color(t_game *game, char **tab);
@@ -217,9 +216,7 @@ float			sprite_angle(t_point sprite_pos, t_point player_pos,
 int				sprite_visible(float angle_sprite);
 int				save_bmp(t_game *game);
 int				get_pixel_color(t_image img, int x, int y);
-/*
-				BONUS
-*/
+int				is_texture(char **tab_line);
 void			render_ray_map(t_game *game, t_ray *rays);
 void			render_player(t_game *game);
 void			render_map(t_game *game);

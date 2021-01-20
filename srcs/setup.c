@@ -12,7 +12,7 @@
 
 #include "../includes/cub3d.h"
 
-int		valid_resol(t_game *game)
+int				valid_resol(t_game *game)
 {
 	int			resol_x;
 	int			resol_y;

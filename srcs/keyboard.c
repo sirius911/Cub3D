@@ -16,7 +16,6 @@ int			deal_key(int key, t_game *game)
 {
 	if (key == KEY_ESC)
 	{
-		//mlx_loop_end(game->win.mlx_ptr);
 		game_close(game);
 		exit(0);
 	}

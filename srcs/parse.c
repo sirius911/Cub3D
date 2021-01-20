@@ -17,16 +17,6 @@ static int		valid_color(int color)
 	return (color >= 0 && color <= 255);
 }
 
-static int		is_texture(char **tab_line)
-{
-	if (ft_strequ(*tab_line, "NO") || ft_strequ(*tab_line, "SO")
-		|| ft_strequ(*tab_line, "WE") || ft_strequ(*tab_line, "EA")
-		|| ft_strequ(*tab_line, "S"))
-		return (TRUE);
-	else
-		return (FALSE);
-}
-
 static int		parse_resol(t_game *game, char **tab)
 {
 	int			resol_x;
@@ -81,6 +71,7 @@ int				parse_color(char *str)
 	free(rgb);
 	return (color);
 }
+
 static int		record_list_map(t_game *game, t_list **list, char *line)
 {
 	game->in_map = TRUE;
@@ -105,16 +96,16 @@ int				parse_line(char *line, t_game *game, t_list **list)
 	else if (*tab_line && is_texture(tab_line) && !game->in_map)
 		ret = parse_texture(game, tab_line);
 	else if (*tab_line && (ft_strequ(*tab_line, "F") ||
-		ft_strequ(*tab_line, "C"))&& !game->in_map)
+		ft_strequ(*tab_line, "C")) && !game->in_map)
 		ret = setup_color(game, tab_line);
 	else if (*tab_line && *tab_line[0] == '1')
 		ret = record_list_map(game, list, line);
 	else if (!*tab_line && game->in_map)
-		ret = msg_err(EMPTY_LINE,"");
-	else if (*tab_line  && !game->in_map)
+		ret = msg_err(EMPTY_LINE, "");
+	else if (*tab_line && !game->in_map)
 		ret = msg_err(BAD_ARG_CUB, line);
-	else if(game->in_map)
-		ret = msg_err(BAD_END_MAP,"");
+	else if (game->in_map)
+		ret = msg_err(BAD_END_MAP, "");
 	if (*tab_line)
 		free_tab(tab_line);
 	free(tab_line);

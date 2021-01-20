@@ -21,7 +21,5 @@ int					msg_err(char *msg, char *line)
 	}
 	else
 		printf("\n");
-/*	ft_putstr_fd("Error\n", 2);
-	ft_putstr_fd(msg, 2);*/
 	return (FALSE);
 }

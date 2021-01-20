@@ -30,21 +30,21 @@ void		init_game(t_game *game, int save)
 static int	check_data_game(t_game *game)
 {
 	if (!game->tex[NORTH].file)
-		return (msg_err(TEXT_MISSING,"North"));
+		return (msg_err(TEXT_MISSING, "North"));
 	if (!game->tex[SOUTH].file)
-		return (msg_err(TEXT_MISSING,"South"));
+		return (msg_err(TEXT_MISSING, "South"));
 	if (!game->tex[EAST].file)
-		return (msg_err(TEXT_MISSING,"East"));
+		return (msg_err(TEXT_MISSING, "East"));
 	if (!game->tex[WEST].file)
-		return (msg_err(TEXT_MISSING,"West"));
+		return (msg_err(TEXT_MISSING, "West"));
 	if (!game->tex[SPRITE].file)
-		return (msg_err(TEXT_MISSING,"Sprite"));
+		return (msg_err(TEXT_MISSING, "Sprite"));
 	if (game->win.f_color == -1)
-		return (msg_err(COLOR_MISSING,"Floor"));
+		return (msg_err(COLOR_MISSING, "Floor"));
 	if (game->win.c_color == -1)
-		return (msg_err(COLOR_MISSING,"Ceil"));
+		return (msg_err(COLOR_MISSING, "Ceil"));
 	if (!game->in_map)
-		return (msg_err("No map !",""));
+		return (msg_err(NO_MAP, ""));
 	return (TRUE);
 }
 
@@ -60,7 +60,7 @@ int			valid_game(t_game *game, t_list *list, int ret)
 	if (!ret)
 		return (FALSE);
 	if (game->win.width == 0 || game->win.height == 0)
-		return (msg_err(NO_RESOLUTION,""));
+		return (msg_err(NO_RESOLUTION, ""));
 	if (check_data_game(game))
 	{
 		return (load_textures(game));
@@ -90,7 +90,7 @@ void		run_game(t_game *game)
 	}
 }
 
-int		game_close(t_game *game)
+int			game_close(t_game *game)
 {
 	if (game->tab_rays)
 		free(game->tab_rays);

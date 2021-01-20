@@ -27,3 +27,13 @@ int					get_tex_color(t_texture tex, int x, int y)
 	dst = tex.data + (y * tex.line_length + x * tex.bits_per_pixel / 8);
 	return (*(unsigned int*)dst);
 }
+
+int					is_texture(char **tab_line)
+{
+	if (ft_strequ(*tab_line, "NO") || ft_strequ(*tab_line, "SO")
+		|| ft_strequ(*tab_line, "WE") || ft_strequ(*tab_line, "EA")
+		|| ft_strequ(*tab_line, "S"))
+		return (TRUE);
+	else
+		return (FALSE);
+}
