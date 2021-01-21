@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 
-NAME = Cub3D
+NAME = cub3D
 
 #	Sources
 
@@ -27,7 +27,8 @@ B_SRC		=	bonus/main_bonus.c bonus/images_bonus.c bonus/map_bonus.c bonus/player_
 				bonus/map_utils_bonus.c bonus/raycasting_bonus.c bonus/textures_bonus.c bonus/mini_map_bonus.c \
 				bonus/point_bonus.c bonus/facing_bonus.c bonus/inters_vert_bonus.c bonus/inters_horz_bonus.c bonus/free_functions_bonus.c \
 				bonus/check_sprites_bonus.c bonus/error_bonus.c bonus/sprites_bonus.c bonus/textures_utils_bonus.c bonus/sprites_utils_bonus.c \
-				bonus/bmp_bonus.c
+				bonus/bmp_bonus.c 
+				#bonus/play_sound.c
 
 CC			=	clang
 
@@ -66,7 +67,7 @@ re: fclean all
 bonus: fclean $(B_OBJ)
 		@make -C libft/
 		@echo "\n\033[0;32mCompiling bonus..."
-		@$(CC) -o $(NAME) $(FLAGS) $(B_HEADER) $(B_OBJ) -L libft/ -lft -L./minilibx -lmlx -lXext -lX11 -lm
+		@$(CC) -o $(NAME) $(FLAGS) $(B_HEADER) $(B_OBJ) -L libft/ -lft -L./minilibx -lmlx -lXext -lX11 -lm -lpthread -D_REENTRANT
 		@echo "\033[0m"
 test:	
 	./$(NAME) maps/map.cub
