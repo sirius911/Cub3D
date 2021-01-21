@@ -81,6 +81,7 @@ void		run_game(t_game *game)
 	{
 		game->win.win_ptr = mlx_new_window(game->win.mlx_ptr,
 		game->win.width, game->win.height, game->map.name);
+		mlx_hook(game->win.win_ptr, 9, 1L << 21, &render, game);
 		mlx_hook(game->win.win_ptr, 33, 1L << 17, &game_close, game);
 		mlx_hook(game->win.win_ptr, 2, 1L << 0, &deal_key, game);
 		mlx_hook(game->win.win_ptr, 3, 1L << 1, &release_key, game);
