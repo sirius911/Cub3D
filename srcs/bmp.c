@@ -18,7 +18,7 @@ static void			fill_bmp_data(t_image img, int width, int height, int fd)
 	int				j;
 	char			*dst;
 
-	i = height;
+	i = height - 1;
 	while (i >= 0)
 	{
 		j = 0;
