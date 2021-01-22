@@ -78,6 +78,7 @@ void				update_player(t_game *game)
 	t_point			new;
 
 	game->player.rot_angle += game->player.turn_dir * game->player.rot_speed;
+	game->player.rot_angle = normalize_angle(game->player.rot_angle);
 	if (game->player.trans_dir != 0)
 	{
 		ang = game->player.rot_angle + ((M_PI / 2) * game->player.trans_dir);

@@ -21,7 +21,7 @@ void				init_player(t_player *player)
 	player->trans_dir = 0;
 	player->rot_angle = 0;
 	player->move_speed = 0.3;
-	player->rot_speed = 4 * (M_PI / 180);
+	player->rot_speed = 2 * (M_PI / 180);
 }
 
 static int			valid_pos_player(t_game *game, int x, int y, char dir)
@@ -78,6 +78,7 @@ void				update_player(t_game *game)
 	t_point			new;
 
 	game->player.rot_angle += game->player.turn_dir * game->player.rot_speed;
+	game->player.rot_angle = normalize_angle(game->player.rot_angle);
 	if (game->player.trans_dir != 0)
 	{
 		ang = game->player.rot_angle + ((M_PI / 2) * game->player.trans_dir);
