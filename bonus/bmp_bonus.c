@@ -18,7 +18,7 @@ static void			fill_bmp_data(t_image img, int width, int height, int fd)
 	int				j;
 	char			*dst;
 
-	i = height;
+	i = height - 1;
 	while (i >= 0)
 	{
 		j = 0;
@@ -87,5 +87,7 @@ int					save_bmp(t_game *game)
 	fill_bmp_data(game->win.image, game->win.width, game->win.height, fd);
 	if (close(fd) == -1)
 		return (msg_err(CLOSE_FAIL, ""));
+	if (!game->save)
+		ft_putstr("Saved -> save.bmp\n");
 	return (TRUE);
 }
