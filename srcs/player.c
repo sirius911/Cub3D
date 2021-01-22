@@ -21,7 +21,7 @@ void				init_player(t_player *player)
 	player->trans_dir = 0;
 	player->rot_angle = 0;
 	player->move_speed = 0.3;
-	player->rot_speed = 4 * (M_PI / 180);
+	player->rot_speed = 3 * (M_PI / 180);
 }
 
 static int			valid_pos_player(t_game *game, int x, int y, char dir)
