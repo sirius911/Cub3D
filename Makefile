@@ -27,12 +27,12 @@ B_SRC		=	bonus/main_bonus.c bonus/images_bonus.c bonus/map_bonus.c bonus/player_
 				bonus/map_utils_bonus.c bonus/raycasting_bonus.c bonus/textures_bonus.c bonus/mini_map_bonus.c \
 				bonus/point_bonus.c bonus/facing_bonus.c bonus/inters_vert_bonus.c bonus/inters_horz_bonus.c bonus/free_functions_bonus.c \
 				bonus/check_sprites_bonus.c bonus/error_bonus.c bonus/sprites_bonus.c bonus/textures_utils_bonus.c bonus/sprites_utils_bonus.c \
-				bonus/bmp_bonus.c 
+				bonus/bmp_bonus.c bonus/shadow_bonus.c
 				#bonus/play_sound.c
 
 CC			=	clang
 
-FLAGS		= -Werror -Wextra -Wall   -O3 -Ofast
+FLAGS		= -Werror -Wextra -Wall
 
 HEADER		= -I includes/
 

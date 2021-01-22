@@ -15,13 +15,13 @@
 static int		color_minimap(char wall)
 {
 	if (wall == '0')
-		return (WHITE);
-	if (wall == '1')
 		return (GRAY);
+	if (wall == '1')
+		return (0x00101050);
 	if (wall == ' ')
 		return (-1);
 	else
-		return (RED);
+		return (MAGENTA);
 }
 
 void			render_map(t_game *game)
@@ -40,10 +40,10 @@ void			render_map(t_game *game)
 			color = color_minimap(game->map.tab[y][x]);
 			if (color != -1)
 			{
-				point.x = x * SIZE_MINI_MAP;
-				point.y = y * SIZE_MINI_MAP;
+				point.x = x * game->fact_minimap;
+				point.y = y * game->fact_minimap;
 				cube(&game->win, point,
-				10, color);
+				game->fact_minimap, color);
 			}
 			x++;
 		}
@@ -57,7 +57,7 @@ void			render_player(t_game *game)
 	t_point			b;
 
 	cpy_point(&a, &game->player.coord);
-	fact_vect(&a, SIZE_MINI_MAP);
+	fact_vect(&a, game->fact_minimap);
 	add_val_point(&a, -3.0);
 	cube(&game->win, a, 6, RED);
 	add_val_point(&a, 3.0);
@@ -75,13 +75,13 @@ void			render_ray_map(t_game *game, t_ray *rays)
 
 	i = 0;
 	cpy_point(&player, &game->player.coord);
-	fact_vect(&player, SIZE_MINI_MAP);
+	fact_vect(&player, game->fact_minimap);
 	while (i < game->win.num_rays)
 	{
 		ray = rays[i];
 		wall_point = ray.wall_hit;
-		fact_vect(&wall_point, SIZE_MINI_MAP);
-		draw_lines(&game->win, player, wall_point, RED);
+		fact_vect(&wall_point, game->fact_minimap);
+		draw_lines(&game->win, player, wall_point, 0x00FFFF00);
 		i++;
 	}
 }

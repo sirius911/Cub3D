@@ -12,6 +12,22 @@
 
 #include "cub3d_bonus.h"
 
+static void			show_sky(t_game *game, int x, int i)
+{
+	float			dist_shad;
+
+	dist_shad = (30.0 * i) / game->win.height;
+	ft_mlx_pixel_put(&game->win, x, i, shadow(game->win.c_color, dist_shad));
+}
+
+static void			show_floor(t_game *game, int x, int i)
+{
+	float			dist_shad;
+
+	dist_shad = (30.0 * (game->win.height - i)) / game->win.height;
+	ft_mlx_pixel_put(&game->win, x, i, shadow(game->win.f_color, dist_shad));
+}
+
 static void			show_line(t_game *game, int x, t_ray ray, float wall_height)
 {
 	int				i;
@@ -21,7 +37,7 @@ static void			show_line(t_game *game, int x, t_ray ray, float wall_height)
 
 	i = 0;
 	while (i < ray.top_pixel)
-		ft_mlx_pixel_put(&game->win, x, i++, game->win.c_color);
+		show_sky(game, x, i++);
 	if (ray.hit_vert)
 		off_x = (int)(fmod(ray.wall_hit.y, 1.0) * game->tex[ray.id].width);
 	else
@@ -30,11 +46,12 @@ static void			show_line(t_game *game, int x, t_ray ray, float wall_height)
 	{
 		off_y = (i + (wall_height / 2.0) - (game->win.height / 2.0)) *
 		(game->tex[ray.id].height / wall_height);
-		color = get_tex_color(game->tex[ray.id], off_x, off_y);
+		color = shadow(get_tex_color(game->tex[ray.id], off_x, off_y),
+			ray.dist);
 		ft_mlx_pixel_put(&game->win, x, i++, color);
 	}
 	while (i < game->win.height)
-		ft_mlx_pixel_put(&game->win, x, i++, game->win.f_color);
+		show_floor(game, x, i++);
 }
 
 void				gen_3d(t_game *game, t_ray *tab_rays)

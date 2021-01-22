@@ -25,7 +25,10 @@ static void			draw_sprite(t_game *game, t_sprite sprite, t_point pos,
 		offset.y = 0;
 	color = get_tex_color(game->tex[SPRITE], offset.x, offset.y);
 	if (color != no_color)
+	{
+		color = shadow(color, sprite.dist);
 		ft_mlx_pixel_put(&game->win, sprite.first_x + pos.x, pos.y, color);
+	}
 }
 
 static void			render_sprite(t_game *game, t_sprite sprite)

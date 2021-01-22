@@ -73,7 +73,9 @@ int				main(int argc, char **argv)
 	else if (argc == 2)
 	{
 		if (is_valid_file(argv[1]))
+		{
 			init(argv[1], FALSE);
+		}
 		else
 			msg_err(BAD_MAP_FILE, "");
 	}

@@ -31,6 +31,9 @@ int				valid_resol(t_game *game)
 	game->win.num_rays = game->win.width;
 	game->dist_proj_plane = (game->win.width / 2) / tan(FOV_ANGLE / 2);
 	game->tab_rays = (t_ray *)malloc(sizeof(t_ray) * game->win.width);
+	game->fact_minimap = floor(game->win.width * 8 / 800);
+	if (game->fact_minimap > 8)
+		game->fact_minimap = 8;
 	if (!game->tab_rays)
 		return (msg_err(FAIL_MALLOC, "tab_rays[]"));
 	return (TRUE);

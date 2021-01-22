@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#ifndef CUB3D_BONUS_H
+# define CUB3D_BONUS_H
 
 # include <math.h>
 # include <stdio.h>
@@ -20,6 +20,10 @@
 # include "../libft/libft.h"
 # include "../minilibx/mlx.h"
 # include "constants_bonus.h"
+# include <pthread.h>
+# include <time.h>
+# include <stddef.h>
+# include <signal.h>
 
 # define FALSE 0
 # define TRUE 1
@@ -28,13 +32,13 @@
 # define KEY_W 119
 # define KEY_S 115
 # define KEY_D 100
-# define KEY_ESC	65307
-# define KEY_M		109
-# define KEY_LEFT	65361
-# define KEY_RIGHT	65363
-# define KEY_UP		65362
-# define KEY_DOWN	65364
-# define SIZE_MINI_MAP 10.0
+# define KEY_ESC 65307
+# define KEY_M 109
+# define KEY_B 98
+# define KEY_LEFT 65361
+# define KEY_RIGHT 65363
+# define KEY_UP 65362
+# define KEY_DOWN 65364
 # define NONE 0xFF000000
 # define GRAY 0x00AAAAAA
 # define WHITE 0x00FFFFFF
@@ -151,6 +155,8 @@ typedef struct	s_game
 	int				is_minimap;
 	int				in_map;
 	int				save;
+	int				fact_minimap;
+
 }				t_game;
 
 int				msg_err(char *str, char *line);
@@ -224,5 +230,6 @@ void			fact_vect(t_point *point, float fact);
 void			cpy_point(t_point *dst, t_point *src);
 void			add_val_point(t_point *point, float val);
 void			ft_print_list(t_list *list);
+int				shadow(int c, float dist);
 
 #endif
