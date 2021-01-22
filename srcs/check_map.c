@@ -80,7 +80,11 @@ static int		check_space(t_map *map)
 			if (map->tab[i][j] == '0')
 			{
 				if (map->tab[i - 1][j] == ' ' || map->tab[i + 1][j] == ' '
-					|| map->tab[i][j - 1] == ' ' || map->tab[i][j + 1] == ' ')
+					|| map->tab[i][j - 1] == ' ' || map->tab[i][j + 1] == ' '
+					|| map->tab[i - 1][j - 1] == ' ' ||
+					map->tab[i - 1][j + 1] == ' '
+					|| map->tab[i + 1][j - 1] == ' ' ||
+					map->tab[i + 1][j + 1] == ' ')
 					return (FALSE);
 			}
 			j++;
