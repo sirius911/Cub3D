@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                              :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 09:54:36 by clorin            #+#    #+#             */
-/*   Updated: 2020/11/24 10:59:37 by clorin           ###   ########.fr       */
+/*   Updated: 2021/01/25 09:49:36 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,5 @@ int					get_next_line(const int fd, char **line)
 	*line = recup_line(str_static);
 	str_static = save_static(str_static);
 	result = (result == 0 && ft_strlen(str_static) == 0) ? 0 : 1;
-	if (result == 0)
-		free(str_static);
 	return (result);
 }
