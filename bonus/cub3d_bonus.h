@@ -20,11 +20,6 @@
 # include "../libft/libft.h"
 # include "../minilibx/mlx.h"
 # include "constants_bonus.h"
-# include <pthread.h>
-# include <time.h>
-# include <stddef.h>
-# include <signal.h>
-
 # define FALSE 0
 # define TRUE 1
 # define FOV_ANGLE 1.04719755

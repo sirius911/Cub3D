@@ -10,10 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-
 NAME = cub3D
-
-#	Sources
 
 SRC			=	srcs/main.c srcs/images.c srcs/map.c srcs/player.c srcs/window.c srcs/tools.c srcs/setup.c \
 				srcs/parse.c srcs/graphics.c srcs/game.c srcs/check_map.c srcs/keyboard.c srcs/render.c \
@@ -28,7 +25,6 @@ B_SRC		=	bonus/main_bonus.c bonus/images_bonus.c bonus/map_bonus.c bonus/player_
 				bonus/point_bonus.c bonus/facing_bonus.c bonus/inters_vert_bonus.c bonus/inters_horz_bonus.c bonus/free_functions_bonus.c \
 				bonus/check_sprites_bonus.c bonus/error_bonus.c bonus/sprites_bonus.c bonus/textures_utils_bonus.c bonus/sprites_utils_bonus.c \
 				bonus/bmp_bonus.c bonus/shadow_bonus.c
-				#bonus/play_sound.c
 
 CC			=	clang
 
